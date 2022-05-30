@@ -1,0 +1,5 @@
+SERVER = 'DESKTOP-RALHEP6\MEHDI'
+DATABASE = 'cosidertp'
+DRIVER = 'ODBC Driver 17 for SQL Server'
+
+DATABASE_CONN = f'mssql://@{SERVER}/{DATABASE}?driver={DRIVER}'

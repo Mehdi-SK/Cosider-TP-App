@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>690</width>
+    <height>348</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MenuPrincipale</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow{
+	background-color:white;
+}
+QMenu::item{
+	background-color: white;
+}
+QMenu::item:selected{
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(221, 129, 129, 255), stop:1 rgba(255, 194, 163, 255));
+}
+QMenuBar::item{
+	background-color: white;
+}
+QMenuBar::item:selected{
+	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(221, 129, 129, 255), stop:1 rgba(255, 194, 163, 255));
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>690</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menugeneral">
+    <property name="title">
+     <string>Informations génerales</string>
+    </property>
+    <widget class="QMenu" name="menubibiotheque">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="title">
+      <string>Bibliotheque</string>
+     </property>
+     <addaction name="actionemploye"/>
+     <addaction name="actionstructure"/>
+     <addaction name="actionprojet"/>
+     <addaction name="actiondivision"/>
+     <addaction name="actionetat"/>
+    </widget>
+    <widget class="QMenu" name="menuUtilisateurs">
+     <property name="title">
+      <string>Utilisateurs</string>
+     </property>
+     <addaction name="actionListe_des_utilisateurs"/>
+     <addaction name="actionChanger_Mot_de_passe"/>
+    </widget>
+    <addaction name="menubibiotheque"/>
+    <addaction name="menuUtilisateurs"/>
+    <addaction name="separator"/>
+    <addaction name="actionparametre"/>
+    <addaction name="actiondeconnection"/>
+    <addaction name="actionquitter"/>
+   </widget>
+   <widget class="QMenu" name="menuliste_des_materiels">
+    <property name="title">
+     <string>Liste des materiels</string>
+    </property>
+    <addaction name="actionmateriel_informatique"/>
+    <addaction name="actionmateriel_MGX"/>
+   </widget>
+   <widget class="QMenu" name="menutransfer">
+    <property name="title">
+     <string>Transfers</string>
+    </property>
+    <addaction name="actionListe_des_transfers"/>
+   </widget>
+   <widget class="QMenu" name="menufournisseur">
+    <property name="title">
+     <string>Fournisseurs</string>
+    </property>
+    <addaction name="actioncarnet_d_adresses"/>
+   </widget>
+   <widget class="QMenu" name="menuoutil">
+    <property name="title">
+     <string>Outils</string>
+    </property>
+    <addaction name="actioncalculatrice"/>
+   </widget>
+   <widget class="QMenu" name="menuA_propos">
+    <property name="title">
+     <string>A propos</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>?</string>
+    </property>
+   </widget>
+   <addaction name="menugeneral"/>
+   <addaction name="menuliste_des_materiels"/>
+   <addaction name="menutransfer"/>
+   <addaction name="menufournisseur"/>
+   <addaction name="menuoutil"/>
+   <addaction name="menuA_propos"/>
+   <addaction name="menu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionparametre">
+   <property name="text">
+    <string>Paramètres</string>
+   </property>
+  </action>
+  <action name="actiondeconnection">
+   <property name="text">
+    <string>Déconnexion</string>
+   </property>
+  </action>
+  <action name="actionquitter">
+   <property name="text">
+    <string>Quitter</string>
+   </property>
+  </action>
+  <action name="actionemploye">
+   <property name="text">
+    <string>Employés</string>
+   </property>
+  </action>
+  <action name="actionstructure">
+   <property name="text">
+    <string>Structure</string>
+   </property>
+  </action>
+  <action name="actionprojet">
+   <property name="text">
+    <string>Projet</string>
+   </property>
+  </action>
+  <action name="actiondivision">
+   <property name="text">
+    <string>Division</string>
+   </property>
+  </action>
+  <action name="actionmateriel_informatique">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Materiels informatiques</string>
+   </property>
+  </action>
+  <action name="actionmateriel_MGX">
+   <property name="text">
+    <string>Materiels généraux</string>
+   </property>
+  </action>
+  <action name="actiontransfer_ext">
+   <property name="text">
+    <string>transfer ext</string>
+   </property>
+  </action>
+  <action name="actionaffectation_int">
+   <property name="text">
+    <string>affectation int</string>
+   </property>
+  </action>
+  <action name="actioncomptage_gen">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Comptage général</string>
+   </property>
+  </action>
+  <action name="actioninvestissement">
+   <property name="text">
+    <string>investissement </string>
+   </property>
+  </action>
+  <action name="actioninv_faible_v">
+   <property name="text">
+    <string>inv faible v</string>
+   </property>
+  </action>
+  <action name="actioninv">
+   <property name="text">
+    <string>inv</string>
+   </property>
+  </action>
+  <action name="actioncarnet_d_adresses">
+   <property name="text">
+    <string>Carnet d'adresses</string>
+   </property>
+  </action>
+  <action name="actioncalculatrice">
+   <property name="text">
+    <string>Calculatrice</string>
+   </property>
+  </action>
+  <action name="actionetat">
+   <property name="text">
+    <string>Codification</string>
+   </property>
+  </action>
+  <action name="actionListe_des_utilisateurs">
+   <property name="text">
+    <string>Liste des utilisateurs</string>
+   </property>
+  </action>
+  <action name="actionChanger_Mot_de_passe">
+   <property name="text">
+    <string>Changer Mot de passe</string>
+   </property>
+  </action>
+  <action name="actionComptage_informatique">
+   <property name="text">
+    <string>Comptage informatique</string>
+   </property>
+  </action>
+  <action name="actionComptage_moyennes_g_n_rales">
+   <property name="text">
+    <string>Comptage moyennes générales</string>
+   </property>
+  </action>
+  <action name="actionGestion_des_transfers">
+   <property name="text">
+    <string>Liste des transfers</string>
+   </property>
+  </action>
+  <action name="actionListe_des_transfers">
+   <property name="text">
+    <string>Liste des transfers</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>actionquitter</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>137</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
