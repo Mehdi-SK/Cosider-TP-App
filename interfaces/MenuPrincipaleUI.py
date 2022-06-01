@@ -4,12 +4,12 @@ from multiprocessing import AuthenticationError
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import QWidget, QMainWindow
 from os import path
-from interfaces.AuthentificationUI import Authentification
-from interfaces.ListeFournisseur import ListeFournisseurs
+from Interfaces.AuthentificationUI import Authentification
+from Interfaces.ListeFournisseur import ListeFournisseurs
 
 
-from interfaces.ListeMat import ListeMat
-from interfaces.ListeTransfers import ListeTransfers
+from Interfaces.ListeMat import ListeMat
+from Interfaces.ListeTransfers import ListeTransfers
 
 
 class MenuPrincipale(QMainWindow):

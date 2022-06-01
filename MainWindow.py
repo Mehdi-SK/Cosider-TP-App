@@ -1,10 +1,11 @@
-from interfaces.AuthentificationUI import Authentification
-from interfaces.MenuPrincipale import MenuPrincipale
+
+from Interfaces.AuthentificationUI import Authentification
+from Interfaces.MenuPrincipaleUI import MenuPrincipale
 
 class MainWindow():
-    def __init__(self):
-        self.auth = Authentification()
-        
+    def __init__(self, engine):
+        self.engine = engine
+        self.auth = Authentification(engine)
         self.auth.show()
         self.auth.showMenuPrincipalSignal.connect(self.showmenu)
     

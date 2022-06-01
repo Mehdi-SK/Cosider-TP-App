@@ -1,7 +1,6 @@
 
 from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy import Column,String, Integer, create_engine
-from Global import DATABASE_CONN
 
 Base = declarative_base()
 
@@ -18,13 +17,13 @@ class Utilisateur(Base):
                                                                                      self.login, 
                                                                                     self.mot_de_passe,
                                                                                     self.admin_flag)
-
-# Base.metadata.create_all(engine)
-# engine = create_engine(DATABASE_CONN)
-# Session = sessionmaker(bind=engine)
-
-
-# with Session() as session:
-#    results = session.query(Utilisateur).order_by(Utilisateur.id)
-#    print(type(results))
+# if __name__ == "__main__":
+#     engine = create_engine(DATABASE_CONN)
+#     Base.metadata.create_all(engine)
+#     # Session = sessionmaker(bind=engine)
+#     # with Session() as session:
+#     # results = session.query(Utilisateur).order_by(Utilisateur.id)
+#     # print(type(results))
     
+
+
