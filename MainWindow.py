@@ -10,7 +10,7 @@ class MainWindow():
         self.auth.showMenuPrincipalSignal.connect(self.showmenu)
     
     def showmenu(self):
-        self.mp = MenuPrincipale()
+        self.mp = MenuPrincipale(self.engine)
         self.mp.show()
         self.auth.close()
         

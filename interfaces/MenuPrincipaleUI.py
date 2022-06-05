@@ -1,5 +1,5 @@
 from functools import partial
-from multiprocessing import AuthenticationError
+
 
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import QWidget, QMainWindow
@@ -13,12 +13,14 @@ from Interfaces.ListeTransfers import ListeTransfers
 
 
 class MenuPrincipale(QMainWindow):
-    def __init__(self, parent=None, adminFlag=0) -> None:
+    def __init__(self, engine, parent=None, adminFlag=0):
         """ Menu principale de l'application, contient la bar de navigation\n
             adminFlag = 1 : admin
         """
         super(MenuPrincipale, self).__init__(parent)
         loadUi(path.join(path.dirname(__file__), 'menuprincipal.ui'), self)
+        self.adminFlag = adminFlag
+        self.engine = engine
         
         
         # connection des boutons avec les interface correspondates

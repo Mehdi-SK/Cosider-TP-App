@@ -1,0 +1,21 @@
+#Form{
+	
+	background-color: rgb(255, 255, 255);
+}
+
+/* Buttons */
+.QPushButton{
+	border-radius: 2;
+	background-color: rgb(242, 102, 101);
+	border-bottom: 2px solid;
+	border-bottom-color:rgb(221, 83, 83);
+	padding: 3px 16px;
+	color:rgb(255, 221, 221);
+	cursor: pointer;
+	font: 10pt;
+
+}
+.QPushButton:pressed{
+	background-color: rgb(220, 91, 91);
+	border-bottom-color: rgb(194, 73, 73);
+}
