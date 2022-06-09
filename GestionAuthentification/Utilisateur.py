@@ -1,8 +1,6 @@
-
 from sqlalchemy.orm import declarative_base, sessionmaker
-from sqlalchemy import Column,String, Integer, create_engine
-
-Base = declarative_base()
+from sqlalchemy import Column,String, Integer
+from database import engine, Base
 
 
 class Utilisateur(Base):

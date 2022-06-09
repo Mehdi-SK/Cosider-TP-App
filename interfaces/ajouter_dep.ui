@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>781</width>
-    <height>548</height>
+    <width>387</width>
+    <height>323</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Employés</string>
+   <string>Dialog</string>
   </property>
   <property name="styleSheet">
    <string notr="true">*{
 	font: 10pt;
 }
-#Form{
+#Dialog{
 	
 	background-color: rgb(255, 255, 255);
 	font: 10pt;
@@ -37,7 +37,7 @@
 	border-bottom-color: rgb(194, 73, 73);
 }
 
-.QLineEdit{
+.QLineEdit, .QTextEdit{
 	border-radius: 2;
 	border-bottom: 2px solid rgb(166, 166, 166);
 	font: 10pt;
@@ -68,37 +68,61 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="4">
-    <widget class="QPushButton" name="rechercher_button">
+   <item row="1" column="1">
+    <widget class="QPushButton" name="confirmer_button">
+     <property name="maximumSize">
+      <size>
+       <width>100</width>
+       <height>16777215</height>
+      </size>
+     </property>
      <property name="text">
-      <string>Recherche</string>
+      <string>Confirmer</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="2">
-    <widget class="QLineEdit" name="lineEdit">
-     <property name="placeholderText">
-      <string>Recherche</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="5">
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="ajouter_button">
+   <item row="0" column="0" colspan="2">
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="text">
-        <string>Ajouter</string>
+        <string>Code Département</string>
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="modifier_button">
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="codedep"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="text">
-        <string>Modifier</string>
+        <string>Nom Département</string>
        </property>
       </widget>
      </item>
-     <item>
+     <item row="1" column="1">
+      <widget class="QTextEdit" name="nomdep">
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>213912</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
       <spacer name="verticalSpacer">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -111,86 +135,69 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
        </property>
       </spacer>
      </item>
-     <item>
-      <widget class="QPushButton" name="annuler_button">
+     <item row="2" column="1">
+      <widget class="QComboBox" name="combo_service"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="text">
-        <string>Annuler</string>
+        <string>Service:</string>
        </property>
       </widget>
      </item>
     </layout>
    </item>
-   <item row="0" column="1">
-    <widget class="QComboBox" name="comboBox">
-     <property name="minimumSize">
+   <item row="2" column="1">
+    <widget class="QPushButton" name="pushButton_2">
+     <property name="maximumSize">
       <size>
-       <width>200</width>
-       <height>0</height>
+       <width>100</width>
+       <height>16777215</height>
       </size>
      </property>
-     <item>
-      <property name="text">
-       <string>Nom</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Matricule</string>
-      </property>
-     </item>
+     <property name="text">
+      <string>Annuler</string>
+     </property>
     </widget>
    </item>
-   <item row="1" column="0" colspan="5">
-    <widget class="QTableWidget" name="tableWidget">
-     <column>
-      <property name="text">
-       <string>Matricule</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Nom</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Prenom</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Poste</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Genre</string>
-      </property>
-     </column>
-    </widget>
+   <item row="3" column="1">
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>
  <resources/>
  <connections>
   <connection>
-   <sender>annuler_button</sender>
+   <sender>pushButton_2</sender>
    <signal>clicked()</signal>
-   <receiver>Form</receiver>
+   <receiver>Dialog</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>733</x>
-     <y>526</y>
+     <x>303</x>
+     <y>227</y>
     </hint>
     <hint type="destinationlabel">
-     <x>390</x>
-     <y>273</y>
+     <x>85</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>
  </connections>
- <slots>
-  <slot>slot1()</slot>
- </slots>
 </ui>

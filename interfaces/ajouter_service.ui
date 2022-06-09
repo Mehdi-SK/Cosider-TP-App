@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>594</width>
-    <height>455</height>
+    <width>387</width>
+    <height>256</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Projets</string>
+   <string>Dialog</string>
   </property>
   <property name="styleSheet">
    <string notr="true">*{
 	font: 10pt;
 }
-#Form{
+#Dialog{
 	
 	background-color: rgb(255, 255, 255);
 	font: 10pt;
@@ -37,7 +37,7 @@
 	border-bottom-color: rgb(194, 73, 73);
 }
 
-.QLineEdit{
+.QLineEdit, .QTextEdit{
 	border-radius: 2;
 	border-bottom: 2px solid rgb(166, 166, 166);
 	font: 10pt;
@@ -65,52 +65,64 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                 stop: 0 #D3D3D3, stop: 0.4 #D8D8D8,
                                 stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1);
-}
-QTableWidget{
-	background-color:rgb(222, 222, 222);
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="2">
-    <widget class="QPushButton" name="rechercher_button">
+   <item row="1" column="1">
+    <widget class="QPushButton" name="confirmer_button">
+     <property name="maximumSize">
+      <size>
+       <width>100</width>
+       <height>16777215</height>
+      </size>
+     </property>
      <property name="text">
-      <string>Recherche</string>
+      <string>Confirmer</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="1" colspan="2">
-    <widget class="QTableWidget" name="tableWidget">
-     <property name="sizeAdjustPolicy">
-      <enum>QAbstractScrollArea::AdjustToContents</enum>
-     </property>
-     <property name="editTriggers">
-      <set>QAbstractItemView::NoEditTriggers</set>
-     </property>
-     <property name="selectionMode">
-      <enum>QAbstractItemView::MultiSelection</enum>
-     </property>
-     <property name="selectionBehavior">
-      <enum>QAbstractItemView::SelectRows</enum>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="3">
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="ajouter_button">
+   <item row="0" column="0" colspan="2">
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="text">
-        <string>Ajouter</string>
+        <string>Code Service</string>
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="supprimer_button">
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="codes"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="text">
-        <string>Supprimer</string>
+        <string>Nom Service</string>
        </property>
       </widget>
      </item>
-     <item>
+     <item row="1" column="1">
+      <widget class="QTextEdit" name="noms">
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>213912</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
       <spacer name="verticalSpacer">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -123,39 +135,51 @@ QTableWidget{
        </property>
       </spacer>
      </item>
-     <item>
-      <widget class="QPushButton" name="annuler">
-       <property name="text">
-        <string>Annuler</string>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
-   <item row="0" column="1">
-    <widget class="QLineEdit" name="input">
-     <property name="placeholderText">
-      <string>Code Projet</string>
+   <item row="2" column="1">
+    <widget class="QPushButton" name="pushButton_2">
+     <property name="maximumSize">
+      <size>
+       <width>100</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Annuler</string>
      </property>
     </widget>
+   </item>
+   <item row="3" column="1">
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>
  <resources/>
  <connections>
   <connection>
-   <sender>annuler</sender>
+   <sender>pushButton_2</sender>
    <signal>clicked()</signal>
-   <receiver>Form</receiver>
+   <receiver>Dialog</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>546</x>
-     <y>428</y>
+     <x>303</x>
+     <y>227</y>
     </hint>
     <hint type="destinationlabel">
-     <x>503</x>
-     <y>0</y>
+     <x>85</x>
+     <y>219</y>
     </hint>
    </hints>
   </connection>

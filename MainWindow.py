@@ -8,9 +8,8 @@ class MainWindow():
         self.auth = Authentification(engine)
         self.auth.show()
         self.auth.showMenuPrincipalSignal.connect(self.showmenu)
-    
-    def showmenu(self):
-        self.mp = MenuPrincipale(self.engine)
+    def showmenu(self, adminF):
+        self.mp = MenuPrincipale(self.engine, adminFlag=adminF)
         self.mp.show()
         self.auth.close()
         

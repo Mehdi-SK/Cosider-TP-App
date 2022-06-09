@@ -7,30 +7,56 @@
     <x>0</x>
     <y>0</y>
     <width>690</width>
-    <height>348</height>
+    <height>423</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MenuPrincipale</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/icon/icon1.png</normaloff>:/icon/icon1.png</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow{
-	background-color:white;
+	background-color:#eeeeee;
 }
 QMenu::item{
 	background-color: white;
 }
 QMenu::item:selected{
-	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(221, 129, 129, 255), stop:1 rgba(255, 194, 163, 255));
+	background-color: qlineargradient(spread:pad, x1:0.548, y1:1, x2:0.469455, y2:0, stop:0.627119 rgba(242, 101, 101, 255), stop:1 rgba(255, 146, 117, 255))
 }
 QMenuBar::item{
 	background-color: white;
 }
 QMenuBar::item:selected{
-	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(221, 129, 129, 255), stop:1 rgba(255, 194, 163, 255));
+	
+	background-color: qlineargradient(spread:pad, x1:0.548, y1:1, x2:0.469455, y2:0, stop:0.627119 rgba(242, 101, 101, 255), stop:1 rgba(255, 146, 117, 255));
 }</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <property name="iconSize">
+   <size>
+    <width>200</width>
+    <height>200</height>
+   </size>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="label">
+      <property name="styleSheet">
+       <string notr="true">background-image: url(:/icon/icon.png);
+background-repeat: no-repeat;
+background-position: center;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -51,10 +77,14 @@ QMenuBar::item:selected{
      <property name="title">
       <string>Bibliotheque</string>
      </property>
+     <property name="icon">
+      <iconset theme="icon.png" resource="resources.qrc">
+       <normaloff>:/icon/icon.png</normaloff>:/icon/icon.png</iconset>
+     </property>
      <addaction name="actionemploye"/>
-     <addaction name="actionstructure"/>
+     <addaction name="actiondepartement"/>
+     <addaction name="actionservice"/>
      <addaction name="actionprojet"/>
-     <addaction name="actiondivision"/>
      <addaction name="actionetat"/>
     </widget>
     <widget class="QMenu" name="menuUtilisateurs">
@@ -135,9 +165,9 @@ QMenuBar::item:selected{
     <string>Employés</string>
    </property>
   </action>
-  <action name="actionstructure">
+  <action name="actionservice">
    <property name="text">
-    <string>Structure</string>
+    <string>Service</string>
    </property>
   </action>
   <action name="actionprojet">
@@ -145,9 +175,9 @@ QMenuBar::item:selected{
     <string>Projet</string>
    </property>
   </action>
-  <action name="actiondivision">
+  <action name="actiondepartement">
    <property name="text">
-    <string>Division</string>
+    <string>Département</string>
    </property>
   </action>
   <action name="actionmateriel_informatique">
@@ -245,7 +275,9 @@ QMenuBar::item:selected{
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>actionquitter</sender>
