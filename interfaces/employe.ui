@@ -82,6 +82,16 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
      </property>
     </widget>
    </item>
+   <item row="0" column="1">
+    <widget class="QComboBox" name="comboBox">
+     <property name="minimumSize">
+      <size>
+       <width>200</width>
+       <height>0</height>
+      </size>
+     </property>
+    </widget>
+   </item>
    <item row="1" column="5">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
@@ -95,6 +105,13 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
       <widget class="QPushButton" name="modifier_button">
        <property name="text">
         <string>Modifier</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="archiver">
+       <property name="text">
+        <string>Archiver</string>
        </property>
       </widget>
      </item>
@@ -120,54 +137,8 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
      </item>
     </layout>
    </item>
-   <item row="0" column="1">
-    <widget class="QComboBox" name="comboBox">
-     <property name="minimumSize">
-      <size>
-       <width>200</width>
-       <height>0</height>
-      </size>
-     </property>
-     <item>
-      <property name="text">
-       <string>Nom</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Matricule</string>
-      </property>
-     </item>
-    </widget>
-   </item>
    <item row="1" column="0" colspan="5">
-    <widget class="QTableWidget" name="tableWidget">
-     <column>
-      <property name="text">
-       <string>Matricule</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Nom</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Prenom</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Poste</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Genre</string>
-      </property>
-     </column>
-    </widget>
+    <widget class="QTableWidget" name="tableWidget"/>
    </item>
   </layout>
  </widget>

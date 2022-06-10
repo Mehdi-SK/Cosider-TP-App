@@ -1,6 +1,6 @@
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import QWidget, QDialog, QMessageBox, QTableWidgetItem, QHeaderView
-from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtCore import pyqtSignal, Qt
 from os import path
 from GestionStrucutre.Service import Service
 from sqlalchemy.orm import Session
@@ -76,6 +76,7 @@ class ServiceUI(QWidget):
         
     def ouvrirDialogAjout(self):
         self.dialog = DialogAjouter()
+        self.dialog.setWindowModality(Qt.ApplicationModal)
         self.dialog.show()
         self.dialog.update_liste.connect(self.initListeServices)
     
@@ -100,8 +101,9 @@ class ServiceUI(QWidget):
             codesupp.append(selected[i].text())
         msgbox = QMessageBox()
         msgbox.setIcon(QMessageBox.Information)
-        listecodes = ",".join(codesupp)
-        msgbox.setText("Voulez vous supprimer ces services?\n"+listecodes)
+        listecodes = "-\n".join(codesupp)
+        msgbox.setText("Voulez vous supprimer ces services?\n"+listecodes
+                       +"\n Nb: Cela vas supprimer tout les departement associés, continuez?")
         msgbox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         returnvalue = msgbox.exec()
         if returnvalue == QMessageBox.Ok:
@@ -111,7 +113,8 @@ class ServiceUI(QWidget):
                         session.query(Service).filter_by(code_service=code).delete()
                         session.commit()
                         self.initListeServices()
-                    except:
+                    except Exception as e:
+                        print(e)
                         msgbox2 = QMessageBox()
                         msgbox2.setIcon(QMessageBox.Warning)
                         msgbox2.setText("Erreur dans la supression de "+ code)
