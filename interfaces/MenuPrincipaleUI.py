@@ -13,6 +13,8 @@ from Interfaces.ListeMat import ListeMat
 from Interfaces.ListeTransfers import ListeTransfers
 from Interfaces.ProjetsUI import ProjetsUI
 from Interfaces.ServicesUI import ServiceUI
+from Interfaces.DepartementUI import DepartmentUI
+
 class MenuPrincipale(QMainWindow):
     def __init__(self, engine, parent=None, adminFlag=0):
         """ Menu principale de l'application, contient la bar de navigation\n
@@ -37,6 +39,7 @@ class MenuPrincipale(QMainWindow):
         self.actiondeconnection.triggered.connect(self.handleDeconnexion)
         self.actionprojet.triggered.connect(self.ouvrirMenuProjets)
         self.actionservice.triggered.connect(self.ouvrirMenuServices)  
+        self.actiondepartement.triggered.connect(self.ouvrirMenuDepartements)
         
     def handleDeconnexion(self):
         self.auth = Authentification()
@@ -81,3 +84,8 @@ class MenuPrincipale(QMainWindow):
         self.menu_service = ServiceUI(adminFlag=self.adminFlag)
         self.menu_service.setWindowModality(Qt.ApplicationModal)
         self.menu_service.show()
+    
+    def ouvrirMenuDepartements(self):
+        self.menu_dep = DepartmentUI(adminFlag=self.adminFlag)
+        self.menu_dep.setWindowModality(Qt.ApplicationModal)
+        self.menu_dep.show()

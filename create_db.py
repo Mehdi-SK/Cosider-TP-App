@@ -10,7 +10,7 @@ def init_db():
     from GestionStrucutre.Employe import Employe
     from GestionStrucutre.Projet import Projet
     from GestionStrucutre.Service import Service
-      
+    from GestionStrucutre.Departement import Departement  
     
     Base.metadata.create_all(bind=engine)
     
