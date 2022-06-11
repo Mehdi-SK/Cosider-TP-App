@@ -71,7 +71,7 @@ class MenuPrincipale(QMainWindow):
         subprocess.Popen('C:\\Windows\\System32\\calc.exe')
     
     def ouvrirMenuEmp(self):
-        self.menu_emp = EmployeUI()
+        self.menu_emp = EmployeUI(adminFlag=self.adminFlag)
         self.menu_emp.setWindowModality(Qt.ApplicationModal)
         self.menu_emp.show()
     

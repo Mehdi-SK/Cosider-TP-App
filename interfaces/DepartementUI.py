@@ -121,8 +121,9 @@ class DepartmentUI(QWidget):
                         session.query(Departement).filter_by(code_dep=code).delete()
                         session.commit()
                         self.initListeDep()
-                    except:
+                    except Exception as e:
                         msgbox2 = QMessageBox()
                         msgbox2.setIcon(QMessageBox.Warning)
+                        print(e)
                         msgbox2.setText("Erreur dans la supression de "+ code)
                         msgbox2.exec()

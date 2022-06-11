@@ -74,8 +74,14 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
    <bool>true</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="1">
-    <widget class="QPushButton" name="confirmer_button">
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <property name="spacing">
+    <number>6</number>
+   </property>
+   <item row="4" column="1">
+    <widget class="QPushButton" name="pushButton_2">
      <property name="maximumSize">
       <size>
        <width>100</width>
@@ -83,12 +89,18 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
       </size>
      </property>
      <property name="text">
-      <string>Confirmer</string>
+      <string>Annuler</string>
      </property>
     </widget>
    </item>
    <item row="0" column="0" colspan="2">
     <layout class="QFormLayout" name="formLayout">
+     <property name="horizontalSpacing">
+      <number>6</number>
+     </property>
+     <property name="verticalSpacing">
+      <number>6</number>
+     </property>
      <item row="0" column="0">
       <widget class="QLabel" name="label">
        <property name="minimumSize">
@@ -107,6 +119,12 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
      </item>
      <item row="0" column="1">
       <widget class="QLineEdit" name="mat">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="whatsThis">
+        <string>Matricule</string>
+       </property>
        <property name="frame">
         <bool>true</bool>
        </property>
@@ -114,7 +132,7 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
         <bool>false</bool>
        </property>
        <property name="clearButtonEnabled">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -158,6 +176,33 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
        </property>
       </widget>
      </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Genre</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QComboBox" name="combo_genre">
+       <item>
+        <property name="text">
+         <string>Homme</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Femme</string>
+        </property>
+       </item>
+      </widget>
+     </item>
      <item row="4" column="0">
       <widget class="QLabel" name="label_6">
        <property name="minimumSize">
@@ -178,49 +223,6 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
        </property>
       </widget>
      </item>
-     <item row="7" column="1">
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="3" column="1">
-      <widget class="QComboBox" name="combo_genre">
-       <item>
-        <property name="text">
-         <string>Homme</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Femme</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_5">
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Genre</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QComboBox" name="combo_dep"/>
-     </item>
      <item row="5" column="0">
       <widget class="QLabel" name="label_7">
        <property name="minimumSize">
@@ -234,10 +236,13 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
        </property>
       </widget>
      </item>
+     <item row="5" column="1">
+      <widget class="QComboBox" name="combo_dep"/>
+     </item>
     </layout>
    </item>
-   <item row="2" column="1">
-    <widget class="QPushButton" name="pushButton_2">
+   <item row="3" column="1">
+    <widget class="QPushButton" name="confirmer_button">
      <property name="maximumSize">
       <size>
        <width>100</width>
@@ -245,12 +250,46 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
       </size>
      </property>
      <property name="text">
-      <string>Annuler</string>
+      <string>Confirmer</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="1">
-    <spacer name="verticalSpacer_2">
+   <item row="1" column="1">
+    <widget class="QCheckBox" name="archive_checkbox">
+     <property name="minimumSize">
+      <size>
+       <width>5</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>100</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="text">
+      <string>Archive</string>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>16</width>
+       <height>16</height>
+      </size>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+     <property name="tristate">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>

@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>Form</class>
  <widget class="QWidget" name="Form">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -12,6 +15,10 @@
   </property>
   <property name="windowTitle">
    <string>Employés</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icon.png</normaloff>icon.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">*{
@@ -76,20 +83,35 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
     </widget>
    </item>
    <item row="0" column="2">
-    <widget class="QLineEdit" name="lineEdit">
+    <widget class="QLineEdit" name="recherche">
      <property name="placeholderText">
       <string>Recherche</string>
      </property>
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QComboBox" name="comboBox">
+    <widget class="QComboBox" name="search_combo">
      <property name="minimumSize">
       <size>
        <width>200</width>
        <height>0</height>
       </size>
      </property>
+     <item>
+      <property name="text">
+       <string>Nom</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Matricule</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Departement</string>
+      </property>
+     </item>
     </widget>
    </item>
    <item row="1" column="5">
@@ -103,13 +125,16 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
      </item>
      <item>
       <widget class="QPushButton" name="modifier_button">
+       <property name="whatsThis">
+        <string/>
+       </property>
        <property name="text">
         <string>Modifier</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="archiver">
+      <widget class="QPushButton" name="archiver_button">
        <property name="text">
         <string>Archiver</string>
        </property>
@@ -138,11 +163,36 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
     </layout>
    </item>
    <item row="1" column="0" colspan="5">
-    <widget class="QTableWidget" name="tableWidget"/>
+    <widget class="QTableWidget" name="tableWidget">
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::MultiSelection</enum>
+     </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="5">
+    <widget class="QCheckBox" name="archive_checkbox">
+     <property name="text">
+      <string>Archive</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>annuler_button</sender>
