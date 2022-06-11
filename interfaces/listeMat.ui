@@ -1,30 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>listedematerielinformatique</class>
- <widget class="QWidget" name="listedematerielinformatique">
+ <class>liste_mat</class>
+ <widget class="QWidget" name="liste_mat">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>847</width>
+    <width>700</width>
     <height>456</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Liste des materiels</string>
+   <string>Liste des materiels informatique</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">*{
+	font: 10pt;
+}
+#Form{
+	
+	background-color: rgb(255, 255, 255);
+	font: 10pt;
+}
+
+.QPushButton{
+	border-radius: 2;
+	background-color: qlineargradient(spread:pad, x1:0.548, y1:1, x2:0.469455, y2:0, stop:0.627119 rgba(242, 101, 101, 255), stop:1 rgba(255, 146, 117, 255));
+	border-bottom: 2px solid;
+	border-bottom-color:rgb(221, 83, 83);
+	padding: 3px 16px;
+	color:rgb(255, 221, 221);	
+	font: 10pt;
+}
+.QPushButton:pressed{
+	background-color: rgb(220, 91, 91);
+	border-bottom-color: rgb(194, 73, 73);
+}
+
+.QLineEdit{
+	border-radius: 2;
+	border-bottom: 2px solid rgb(166, 166, 166);
+	font: 10pt;
+	padding: 3px 6px;
+	
+	background-color:rgb(222, 222, 222);
+}
+
+.QComboBox{
+	border-radius: 2;
+	background-color:rgb(222, 222, 222);
+	border: none;
+	padding: 3px 6px;
+	border-bottom: 2px solid rgb(166, 166, 166);
+}
+.QComboBox::drop-down{
+	 subcontrol-origin: padding;
+    subcontrol-position: top right;
+	
+	border-left-width: 1px;
+    border-left-color: darkgray;
+    border-left-style: solid;
+}
+QComboBox:!editable:on, QComboBox::drop-down:editable:on {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #D3D3D3, stop: 0.4 #D8D8D8,
+                                stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1);
+}
+QTableWidget{
+	
+}</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Recherche Par:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="comboBox">
+      <widget class="QComboBox" name="recherche_combo">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -55,14 +105,14 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit">
+      <widget class="QLineEdit" name="recherche_code">
        <property name="placeholderText">
         <string>Recherche</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_7">
+      <widget class="QPushButton" name="rechercher_button">
        <property name="text">
         <string>Recherche</string>
        </property>
@@ -93,61 +143,6 @@
      <property name="sortingEnabled">
       <bool>true</bool>
      </property>
-     <row>
-      <property name="text">
-       <string>1</string>
-      </property>
-     </row>
-     <row>
-      <property name="text">
-       <string>2</string>
-      </property>
-     </row>
-     <column>
-      <property name="text">
-       <string>Code Inv</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Code Cat</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Nom</string>
-      </property>
-     </column>
-     <item row="0" column="0">
-      <property name="text">
-       <string>sgaadw</string>
-      </property>
-     </item>
-     <item row="0" column="1">
-      <property name="text">
-       <string>pc</string>
-      </property>
-     </item>
-     <item row="0" column="2">
-      <property name="text">
-       <string>i5</string>
-      </property>
-     </item>
-     <item row="1" column="0">
-      <property name="text">
-       <string>h25z</string>
-      </property>
-     </item>
-     <item row="1" column="1">
-      <property name="text">
-       <string>imp</string>
-      </property>
-     </item>
-     <item row="1" column="2">
-      <property name="text">
-       <string>xerox</string>
-      </property>
-     </item>
     </widget>
    </item>
    <item row="1" column="2">
@@ -228,7 +223,7 @@
   <connection>
    <sender>annuler_button</sender>
    <signal>clicked()</signal>
-   <receiver>listedematerielinformatique</receiver>
+   <receiver>liste_mat</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
