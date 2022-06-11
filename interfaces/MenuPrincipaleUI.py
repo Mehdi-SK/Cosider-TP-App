@@ -6,10 +6,10 @@ from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import Qt
 from os import path
 from Interfaces.AuthentificationUI import Authentification
-from Interfaces.ListeFournisseur import ListeFournisseurs
+from Interfaces.FournisseurUI import FournisseurUI
 from Interfaces.EmployeUI import EmployeUI
 
-from Interfaces.ListeMat import ListeMat
+from Interfaces.ListeMatInfoUI import ListMatInfoUI
 from Interfaces.ListeTransfers import ListeTransfers
 from Interfaces.ProjetsUI import ProjetsUI
 from Interfaces.ServicesUI import ServiceUI
@@ -31,7 +31,7 @@ class MenuPrincipale(QMainWindow):
         
         
         self.actionmateriel_informatique.triggered.connect(self.openListeMatInfo)
-        self.actionmateriel_MGX.triggered.connect(self.openListeMatMgx)
+        # self.actionmateriel_MGX.triggered.connect(self.openListeMatMgx)
         self.actionListe_des_transfers.triggered.connect(self.openListeTransfers)
         self.actioncarnet_d_adresses.triggered.connect(self.openListeFournisseur)
         self.actioncalculatrice.triggered.connect(self.openCalculatrice)
@@ -64,14 +64,10 @@ class MenuPrincipale(QMainWindow):
         self.hide()
         
     def openListeMatInfo(self):
-        self.lminfo = ListeMat(typeFlag=1)
+        self.lminfo = ListMatInfoUI(adminFlag=self.adminFlag)
         self.lminfo.setWindowModality(Qt.ApplicationModal)
         self.lminfo.show()
     
-    def openListeMatMgx(self):
-        self.lmMgx = ListeMat()
-        self.lmMgx.setWindowModality(Qt.ApplicationModal)
-        self.lmMgx.show()
         
     def openListeTransfers(self):
         self.ltransfers = ListeTransfers()
@@ -79,7 +75,7 @@ class MenuPrincipale(QMainWindow):
         self.ltransfers.show()
     
     def openListeFournisseur(self):
-        self.lfournisseur = ListeFournisseurs()
+        self.lfournisseur = FournisseurUI()
         self.lfournisseur.setWindowModality(Qt.ApplicationModal)
         self.lfournisseur.show()
         

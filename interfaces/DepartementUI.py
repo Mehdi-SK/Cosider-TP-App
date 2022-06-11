@@ -63,7 +63,22 @@ class DialogAjouter(QDialog):
         
         
         msgbox.exec()
-        
+
+class DialogModifier(QDialog):
+    update_liste_emp = pyqtSignal()
+    def __init__(self, result, parent=None):
+        super().__init__(parent)
+        loadUi(path.join(path.dirname(__file__), "modifier_emp.ui"), self)
+        self.result = result
+        self.confirmer_button.clicked.connect(self.modifierFr)
+        self.initModification()
+    
+    def initModification(self):
+        self.nom.setText(self.result.nomf)
+        self.tel.setText(self.result.numT)
+        self.mail.setText(self.result.email)
+        self.loc.setText(self.result.loc)
+    
 class DepartmentUI(QWidget):
     def __init__(self, adminFlag, parent=None):
         super().__init__(parent)

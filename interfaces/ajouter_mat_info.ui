@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>444</width>
+    <height>621</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">*{
+	font: 10pt;
+}
+#Dialog{
+	
+	background-color: rgb(255, 255, 255);
+	font: 10pt;
+}
+
+.QPushButton{
+	border-radius: 2;
+	background-color: qlineargradient(spread:pad, x1:0.548, y1:1, x2:0.469455, y2:0, stop:0.627119 rgba(242, 101, 101, 255), stop:1 rgba(255, 146, 117, 255));
+	border-bottom: 2px solid;
+	border-bottom-color:rgb(221, 83, 83);
+	padding: 3px 16px;
+	color:rgb(255, 221, 221);	
+	font: 10pt;
+}
+.QPushButton:pressed{
+	background-color: rgb(220, 91, 91);
+	border-bottom-color: rgb(194, 73, 73);
+}
+
+.QLineEdit, .QTextEdit{
+	border-radius: 2;
+	border-bottom: 2px solid rgb(166, 166, 166);
+	font: 10pt;
+	padding: 3px 6px;
+	
+	background-color:rgb(222, 222, 222);
+}
+
+.QComboBox{
+	border-radius: 2;
+	background-color:rgb(222, 222, 222);
+	border: none;
+	padding: 3px 6px;
+	border-bottom: 2px solid rgb(166, 166, 166);
+}
+.QComboBox::drop-down{
+	 subcontrol-origin: padding;
+    subcontrol-position: top right;
+	
+	border-left-width: 1px;
+    border-left-color: darkgray;
+    border-left-style: solid;
+}
+QComboBox:!editable:on, QComboBox::drop-down:editable:on {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #D3D3D3, stop: 0.4 #D8D8D8,
+                                stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1);
+}</string>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="2" column="1">
+    <widget class="QPushButton" name="pushButton_2">
+     <property name="maximumSize">
+      <size>
+       <width>100</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Annuler</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QPushButton" name="confirmer_button">
+     <property name="maximumSize">
+      <size>
+       <width>100</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Confirmer</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="codeInvLabel">
+       <property name="text">
+        <string>CodeInv</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="codeInvLineEdit"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="numSerieLabel">
+       <property name="text">
+        <string>NumSerie</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="numSerieLineEdit"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="codeCategorieLabel">
+       <property name="text">
+        <string>Code Categorie</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="codeCategorieLineEdit"/>
+     </item>
+     <item row="10" column="0">
+      <widget class="QLabel" name="typeLabel">
+       <property name="text">
+        <string>Type</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="1">
+      <widget class="QLineEdit" name="typeLineEdit"/>
+     </item>
+     <item row="11" column="0">
+      <widget class="QLabel" name="etatLabel">
+       <property name="text">
+        <string>Etat</string>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="1">
+      <widget class="QComboBox" name="etatComboBox"/>
+     </item>
+     <item row="16" column="0">
+      <widget class="QLabel" name="typeAchatLabel">
+       <property name="text">
+        <string>Type Achat</string>
+       </property>
+      </widget>
+     </item>
+     <item row="16" column="1">
+      <widget class="QComboBox" name="typeAchatComboBox"/>
+     </item>
+     <item row="17" column="0">
+      <widget class="QLabel" name="dateAcquisitionLabel">
+       <property name="text">
+        <string>Date Acquisition</string>
+       </property>
+      </widget>
+     </item>
+     <item row="17" column="1">
+      <widget class="QDateEdit" name="dateAcquisitionDateEdit"/>
+     </item>
+     <item row="18" column="0">
+      <widget class="QLabel" name="prixHTLabel">
+       <property name="text">
+        <string>Prix HT</string>
+       </property>
+      </widget>
+     </item>
+     <item row="18" column="1">
+      <widget class="QLineEdit" name="prixHTLineEdit"/>
+     </item>
+     <item row="19" column="0">
+      <widget class="QLabel" name="garantieLabel">
+       <property name="text">
+        <string>Garantie</string>
+       </property>
+      </widget>
+     </item>
+     <item row="19" column="1">
+      <widget class="QLineEdit" name="garantieLineEdit"/>
+     </item>
+     <item row="20" column="0">
+      <widget class="QLabel" name="numBCLabel">
+       <property name="text">
+        <string>Num BC</string>
+       </property>
+      </widget>
+     </item>
+     <item row="20" column="1">
+      <widget class="QLineEdit" name="numBCLineEdit"/>
+     </item>
+     <item row="21" column="0">
+      <widget class="QLabel" name="numFactureLabel">
+       <property name="text">
+        <string>Num Facture</string>
+       </property>
+      </widget>
+     </item>
+     <item row="21" column="1">
+      <widget class="QLineEdit" name="numFactureLineEdit"/>
+     </item>
+     <item row="9" column="1">
+      <widget class="QLineEdit" name="marqueLineEdit"/>
+     </item>
+     <item row="9" column="0">
+      <widget class="QLabel" name="marqueLabel">
+       <property name="text">
+        <string>Marque</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="1">
+      <widget class="QLineEdit" name="designationLineEdit"/>
+     </item>
+     <item row="8" column="0">
+      <widget class="QLabel" name="designationLabel">
+       <property name="text">
+        <string>Designation</string>
+       </property>
+      </widget>
+     </item>
+     <item row="15" column="1">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Informations d'achat</string>
+       </property>
+      </widget>
+     </item>
+     <item row="13" column="1">
+      <widget class="QLineEdit" name="processeurLineEdit"/>
+     </item>
+     <item row="13" column="0">
+      <widget class="QLabel" name="processeurLabel">
+       <property name="text">
+        <string>Processeur</string>
+       </property>
+      </widget>
+     </item>
+     <item row="14" column="1">
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="23" column="0">
+      <widget class="QLabel" name="nomFournisseurLabel">
+       <property name="text">
+        <string>Nom Fournisseur</string>
+       </property>
+      </widget>
+     </item>
+     <item row="23" column="1">
+      <widget class="QComboBox" name="nomFournisseurComboBox"/>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="1">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>Dialog</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>303</x>
+     <y>227</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>85</x>
+     <y>219</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
