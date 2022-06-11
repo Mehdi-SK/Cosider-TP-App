@@ -14,8 +14,8 @@
    <string>MenuPrincipale</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="resources.qrc">
-    <normaloff>:/icon/icon1.png</normaloff>:/icon/icon1.png</iconset>
+   <iconset>
+    <normaloff>icon1.png</normaloff>icon1.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow{
@@ -43,15 +43,19 @@ QMenuBar::item:selected{
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="QLabel" name="label">
+    <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+     <widget class="QLabel" name="img">
       <property name="styleSheet">
-       <string notr="true">background-image: url(:/icon/icon.png);
-background-repeat: no-repeat;
-background-position: center;</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>icon.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
       </property>
      </widget>
     </item>
@@ -78,7 +82,7 @@ background-position: center;</string>
       <string>Bibliotheque</string>
      </property>
      <property name="icon">
-      <iconset theme="icon.png" resource="resources.qrc">
+      <iconset theme="icon.png">
        <normaloff>:/icon/icon.png</normaloff>:/icon/icon.png</iconset>
      </property>
      <addaction name="actionemploye"/>
@@ -87,15 +91,8 @@ background-position: center;</string>
      <addaction name="actionprojet"/>
      <addaction name="actionetat"/>
     </widget>
-    <widget class="QMenu" name="menuUtilisateurs">
-     <property name="title">
-      <string>Utilisateurs</string>
-     </property>
-     <addaction name="actionListe_des_utilisateurs"/>
-     <addaction name="actionChanger_Mot_de_passe"/>
-    </widget>
     <addaction name="menubibiotheque"/>
-    <addaction name="menuUtilisateurs"/>
+    <addaction name="actionUtilisateurs"/>
     <addaction name="separator"/>
     <addaction name="actionparametre"/>
     <addaction name="actiondeconnection"/>
@@ -272,6 +269,11 @@ background-position: center;</string>
   <action name="actionListe_des_transfers">
    <property name="text">
     <string>Liste des transfers</string>
+   </property>
+  </action>
+  <action name="actionUtilisateurs">
+   <property name="text">
+    <string>Utilisateurs</string>
    </property>
   </action>
  </widget>

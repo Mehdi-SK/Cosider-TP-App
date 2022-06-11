@@ -14,37 +14,54 @@ from Interfaces.ListeTransfers import ListeTransfers
 from Interfaces.ProjetsUI import ProjetsUI
 from Interfaces.ServicesUI import ServiceUI
 from Interfaces.DepartementUI import DepartmentUI
+from Interfaces.UtilisateursUI import UtilisateursUI
+from database import engine
 
 class MenuPrincipale(QMainWindow):
-    def __init__(self, engine, parent=None, adminFlag=0):
+    def __init__(self, parent=None):
         """ Menu principale de l'application, contient la bar de navigation\n
             adminFlag = 1 : admin
         """
-        super(MenuPrincipale, self).__init__(parent)
+        super().__init__(parent)
         loadUi(path.join(path.dirname(__file__), 'menuprincipal.ui'), self)
-        self.adminFlag = adminFlag
-        self.engine = engine
-        
+        self.adminFlag = 0
+        self.auth = Authentification(self)
         # connection des boutons avec les interface correspondates
         # --------------------------
+        
         
         self.actionmateriel_informatique.triggered.connect(self.openListeMatInfo)
         self.actionmateriel_MGX.triggered.connect(self.openListeMatMgx)
         self.actionListe_des_transfers.triggered.connect(self.openListeTransfers)
         self.actioncarnet_d_adresses.triggered.connect(self.openListeFournisseur)
         self.actioncalculatrice.triggered.connect(self.openCalculatrice)
-        
+
         self.actionemploye.triggered.connect(self.ouvrirMenuEmp)
         # Deconnexion
         self.actiondeconnection.triggered.connect(self.handleDeconnexion)
         self.actionprojet.triggered.connect(self.ouvrirMenuProjets)
         self.actionservice.triggered.connect(self.ouvrirMenuServices)  
         self.actiondepartement.triggered.connect(self.ouvrirMenuDepartements)
+        self.actionUtilisateurs.triggered.connect(self.ouvrirMenuUtilisateurs)
+
+        self.start()
         
-    def handleDeconnexion(self):
-        self.auth = Authentification()
+    def start(self):
         self.auth.show()
-        self.close()
+
+    def afterConnexion(self, adminf):
+        self.adminFlag = adminf
+        
+        if(self.adminFlag==0):
+            self.actionUtilisateurs.setVisible(False)
+        else:
+            self.actionUtilisateurs.setVisible(True)
+        self.show()
+
+    def handleDeconnexion(self):
+        self.auth = Authentification(self)
+        self.auth.show()
+        self.hide()
         
     def openListeMatInfo(self):
         self.lminfo = ListeMat(typeFlag=1)
@@ -89,3 +106,8 @@ class MenuPrincipale(QMainWindow):
         self.menu_dep = DepartmentUI(adminFlag=self.adminFlag)
         self.menu_dep.setWindowModality(Qt.ApplicationModal)
         self.menu_dep.show()
+    
+    def ouvrirMenuUtilisateurs(self):
+        self.menu_ut = UtilisateursUI()
+        self.menu_ut.setWindowModality(Qt.ApplicationModal)
+        self.menu_ut.show()

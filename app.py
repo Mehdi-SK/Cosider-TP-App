@@ -1,13 +1,13 @@
 
 import sys
 from PyQt5.QtWidgets import QApplication
-from MainWindow import MainWindow
+from Interfaces.MenuPrincipaleUI import MenuPrincipale
 from database import engine
 
 
 
 app = QApplication(sys.argv)
-window = MainWindow(engine)
+window = MenuPrincipale()
 
 try:
     sys.exit(app.exec_())

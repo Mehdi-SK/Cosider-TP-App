@@ -73,11 +73,13 @@ class DialogAjout(QDialog):
 
 class DialogModifier(QDialog):
     update_liste_emp = pyqtSignal()
-    def __init__(self, result, parent=None):
+    def __init__(self, result, adminf, parent=None):
         super().__init__(parent)
         loadUi(path.join(path.dirname(__file__), "modifier_emp.ui"), self)
         self.result = result
         self.confirmer_button.clicked.connect(self.modifierEmp)
+        if adminf == 0:
+            self.archive_checkbox.hide()
         with Session(engine) as session:
             liste_dep = session.query(Departement.code_dep).all()
             for dep in liste_dep:
@@ -147,10 +149,10 @@ class EmployeUI(QWidget):
     def __init__(self, adminFlag, parent=None):
         super().__init__(parent)
         loadUi(path.join(path.dirname(__file__), "employe.ui"), self)
+        self.adminf = adminFlag
         if adminFlag==0:
             self.archiver_button.hide()
-            self.supprimer_button.hide()
-            self.archiver_checkbox.hide()
+            self.archive_checkbox.hide()
             
         # table widget setup
         liste_columns = ["Matricule", "Nom", "Prénom", "Genre", "Poste", "Departement"]
@@ -234,7 +236,7 @@ class EmployeUI(QWidget):
             with Session(engine) as session:
                 result = session.query(Employe).filter_by(matricule=selected[0].text()).all()
             
-            self.dialog_modifier = DialogModifier(result[0])
+            self.dialog_modifier = DialogModifier(result[0], self.adminf)
             self.dialog_modifier.show()
             self.dialog_modifier.update_liste_emp.connect(self.initListeEmp)
     

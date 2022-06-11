@@ -1,6 +1,6 @@
-from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy import Column,String, Integer
-from database import engine, Base
+
+from database import Base
 
 
 class Utilisateur(Base):
@@ -9,19 +9,12 @@ class Utilisateur(Base):
     login = Column(String(20), unique=True, nullable=False)
     mot_de_passe= Column(String(20), nullable=False)
     admin_flag = Column(Integer, default=0)
-    
     def __repr__(self) -> str:
         return '<ID : {0} Login : {1}, Mot de passe : {2}, Admin flag : {3}>'.format(self.id,
                                                                                      self.login, 
                                                                                     self.mot_de_passe,
                                                                                     self.admin_flag)
-# if __name__ == "__main__":
-#     engine = create_engine(DATABASE_CONN)
-#     Base.metadata.create_all(engine)
-#     # Session = sessionmaker(bind=engine)
-#     # with Session() as session:
-#     # results = session.query(Utilisateur).order_by(Utilisateur.id)
-#     # print(type(results))
+
     
 
 
