@@ -84,7 +84,11 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="codeinv"/>
+      <widget class="QLineEdit" name="codeinv">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+      </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="numSerieLabel">
@@ -94,7 +98,11 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="numserie"/>
+      <widget class="QLineEdit" name="numserie">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+      </widget>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="codeCategorieLabel">
@@ -147,12 +155,17 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
       <widget class="QComboBox" name="et">
        <item>
         <property name="text">
-         <string>Stock</string>
+         <string>En service</string>
         </property>
        </item>
        <item>
         <property name="text">
          <string>En panne</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Stock</string>
         </property>
        </item>
        <item>

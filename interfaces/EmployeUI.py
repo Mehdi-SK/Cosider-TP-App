@@ -21,6 +21,13 @@ class DialogAjout(QDialog):
             liste_dep = session.query(Departement.code_dep).all()
         for dep in liste_dep:
             self.combo_dep.addItem(dep[0])
+    
+    
+    
+    
+    
+    
+    
     def ajouterEmp(self):
         mat = self.mat.text().strip().upper()
         nomEmp = self.nom.text().strip().upper()
@@ -48,6 +55,13 @@ class DialogAjout(QDialog):
                             self.update_liste_emp.emit()
                     except Exception as e:
                         self.showErreur(3)
+    
+    
+    
+    
+    
+    
+    
     def showErreur(self, code):
         msgbox = QMessageBox()
         msgbox.setStandardButtons(QMessageBox.Ok)
@@ -70,6 +84,15 @@ class DialogAjout(QDialog):
         
         
         msgbox.exec()
+
+
+
+
+
+
+
+
+
 
 class DialogModifier(QDialog):
     update_liste_emp = pyqtSignal()
@@ -144,6 +167,14 @@ class DialogModifier(QDialog):
         
         
         msgbox.exec()
+    
+    
+    
+    
+    
+    
+    
+    
     
 class EmployeUI(QWidget):
     def __init__(self, adminFlag, parent=None):

@@ -173,16 +173,16 @@ QTableWidget{
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="transfer_button">
+      <widget class="QPushButton" name="affecter_button">
        <property name="text">
-        <string>Transferer</string>
+        <string>Affecter</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="affecter_button">
+      <widget class="QPushButton" name="transfer_button">
        <property name="text">
-        <string>Affecter</string>
+        <string>Transferer</string>
        </property>
       </widget>
      </item>
@@ -228,7 +228,7 @@ QTableWidget{
     </widget>
    </item>
    <item row="0" column="2">
-    <widget class="QCheckBox" name="checkBox">
+    <widget class="QCheckBox" name="archive_checkbox">
      <property name="text">
       <string>Archive</string>
      </property>
