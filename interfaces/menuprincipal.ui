@@ -89,7 +89,6 @@ QMenuBar::item:selected{
      <addaction name="actionservice"/>
      <addaction name="actionstr"/>
      <addaction name="actionprojet"/>
-     <addaction name="actionetat"/>
     </widget>
     <addaction name="menubibiotheque"/>
     <addaction name="actionUtilisateurs"/>

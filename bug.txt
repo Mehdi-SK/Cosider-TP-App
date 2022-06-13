@@ -3,3 +3,35 @@
 2- Ajouter regular expression to fournisseurs 
     https://www.geeksforgeeks.org/check-if-email-address-valid-or-not-in-python/
     https://stackoverflow.com/questions/41087993/user-input-validation-in-pyqt5-and-python
+
+
+def archiver(self):
+        if not self.archive_checkbox.isChecked():
+            selected = self.tableWidget.selectedItems()
+            codesupp = []
+            for i in range(0, len(selected), self.nb_col):
+                codesupp.append(selected[i].text())
+            msgbox = QMessageBox()
+            msgbox.setIcon(QMessageBox.Information)
+            listecodes = ",\n".join(codesupp)
+            msgbox.setText("Voulez vous archiver ces employés?\n"+listecodes)
+            msgbox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            returnvalue = msgbox.exec()
+            if returnvalue == QMessageBox.Ok:
+                with Session(bind=engine) as session:
+                    for code in codesupp:
+                        try:
+                            session.query(Employe).filter_by(matricule=code).update({"archive": True})
+                            session.commit()
+                            self.initListeEmp()
+                        except Exception as e:
+                            msgbox2 = QMessageBox()
+                            msgbox2.setIcon(QMessageBox.Warning)
+                            print(e)
+                            msgbox2.setText("Erreur dans l'archivage de "+ code)
+                            msgbox2.exec()
+        else:
+            msgbox2 = QMessageBox()
+            msgbox2.setIcon(QMessageBox.Warning)
+            msgbox2.setText("Ces employés est déjà dans l'archive")
+            msgbox2.exec()

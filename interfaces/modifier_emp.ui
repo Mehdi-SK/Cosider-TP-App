@@ -14,7 +14,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Modifier employé</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icon.png</normaloff>icon.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">*{
@@ -22,7 +26,7 @@
 }
 #Dialog{
 	
-	background-color: rgb(255, 255, 255);
+	background-color:#eee;
 	font: 10pt;
 }
 
@@ -110,7 +114,7 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
         </size>
        </property>
        <property name="text">
-        <string>Matricule</string>
+        <string>Matricule:</string>
        </property>
        <property name="textInteractionFlags">
         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
@@ -145,7 +149,7 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
         </size>
        </property>
        <property name="text">
-        <string>Nom</string>
+        <string>Nom:</string>
        </property>
       </widget>
      </item>
@@ -165,7 +169,7 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
         </size>
        </property>
        <property name="text">
-        <string>Prénom</string>
+        <string>Prénom:</string>
        </property>
       </widget>
      </item>
@@ -185,7 +189,7 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
         </size>
        </property>
        <property name="text">
-        <string>Genre</string>
+        <string>Genre:</string>
        </property>
       </widget>
      </item>
@@ -212,7 +216,7 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
         </size>
        </property>
        <property name="text">
-        <string>Poste</string>
+        <string>Poste:</string>
        </property>
       </widget>
      </item>
@@ -232,12 +236,12 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
         </size>
        </property>
        <property name="text">
-        <string>Departement</string>
+        <string>Service:</string>
        </property>
       </widget>
      </item>
      <item row="5" column="1">
-      <widget class="QComboBox" name="combo_dep"/>
+      <widget class="QComboBox" name="combo_ser"/>
      </item>
     </layout>
    </item>

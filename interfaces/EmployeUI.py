@@ -16,17 +16,13 @@ class DialogAjout(QDialog):
         super().__init__(parent)
         loadUi(path.join(path.dirname(__file__), "ajouter_emp.ui"), self)
         self.confirmer_button.clicked.connect(self.ajouterEmp)
-        
+        # TODO restriction de type matricule
         with Session(engine) as session:
             liste_services = session.query(Service.code_service).all()
-        for dep in liste_services:
-            self.combo_dep.addItem(dep[0])
-    
-    
-    
-    
-    
-    
+        for service in liste_services:
+            self.combo_ser.addItem(service[0])
+      
+       
     
     def ajouterEmp(self):
         mat = self.mat.text().strip().upper()
@@ -35,7 +31,7 @@ class DialogAjout(QDialog):
         posteEmp = self.poste.text().strip().title()
         choix_genre = self.combo_genre.currentText()
         genreEmp = choix_genre == "Femme"
-        dep = self.combo_dep.currentText()
+        serv = self.combo_ser.currentText()
 
         if len(mat)==0 or len(nomEmp)==0 or len(prenomEmp)==0 or len(posteEmp)==0:
             self.showErreur(1)
@@ -46,7 +42,7 @@ class DialogAjout(QDialog):
                     self.showErreur(2)
                 else:
                     emp = Employe(matricule=mat, nom=nomEmp, prenom=prenomEmp,
-                                      poste=posteEmp, genre=genreEmp, code_dep=dep)
+                                      poste=posteEmp, genre=genreEmp, code_service=serv)
                     try:
                         with Session(engine) as session:
                             session.add(emp)
@@ -55,17 +51,13 @@ class DialogAjout(QDialog):
                             self.update_liste_emp.emit()
                     except Exception as e:
                         self.showErreur(3)
-    
-    
-    
-    
-    
-    
-    
+          
+       
+           
     def showErreur(self, code):
         msgbox = QMessageBox()
         msgbox.setStandardButtons(QMessageBox.Ok)
-        
+        msgbox.setWindowTitle("Information")
         if code == 0:
             msgbox.setText("Employé Ajouté")
             msgbox.setIcon(QMessageBox.Information)
@@ -92,8 +84,6 @@ class DialogAjout(QDialog):
 
 
 
-
-
 class DialogModifier(QDialog):
     update_liste_emp = pyqtSignal()
     def __init__(self, result, adminf, parent=None):
@@ -104,9 +94,9 @@ class DialogModifier(QDialog):
         if adminf == 0:
             self.archive_checkbox.hide()
         with Session(engine) as session:
-            liste_dep = session.query(Departement.code_dep).all()
-            for dep in liste_dep:
-                self.combo_dep.addItem(dep[0])
+            liste_service = session.query(Service.code_service).all()
+            for service in liste_service:
+                self.combo_ser.addItem(service[0])
         self.initModification()
 
     def initModification(self):
@@ -115,8 +105,8 @@ class DialogModifier(QDialog):
         self.prenom.setText(self.result.prenom)
         self.poste.setText(self.result.poste)
         
-        index = self.combo_dep.findText(self.result.code_dep, Qt.MatchFixedString)
-        self.combo_dep.setCurrentIndex(index)
+        index = self.combo_ser.findText(self.result.code_service, Qt.MatchFixedString)
+        self.combo_ser.setCurrentIndex(index)
         
         index_genre = 1 if self.result.genre else 0
         self.combo_genre.setCurrentIndex(index_genre)
@@ -130,7 +120,7 @@ class DialogModifier(QDialog):
         posteEmp = self.poste.text().strip().title()
         choix_genre = self.combo_genre.currentText()
         genreEmp = choix_genre == "Femme"
-        dep = self.combo_dep.currentText()
+        serv = self.combo_ser.currentText()
         etat_archive = self.archive_checkbox.isChecked()
         if len(nomEmp)==0 or len(prenomEmp)==0 or len(posteEmp)==0:
             self.showErreur(1)
@@ -141,7 +131,7 @@ class DialogModifier(QDialog):
                                                 "prenom":prenomEmp,
                                                 "poste":posteEmp,
                                                 "genre":genreEmp,
-                                                "code_dep":dep,
+                                                "code_service":serv,
                                                 "archive":etat_archive})
                     session.commit()
                     self.showErreur(0)
@@ -153,6 +143,7 @@ class DialogModifier(QDialog):
     def showErreur(self, code):
         msgbox = QMessageBox()
         msgbox.setStandardButtons(QMessageBox.Ok)
+        msgbox.setWindowTitle("Information")
         
         if code == 0:
             msgbox.setText("Employé modifié")
@@ -186,7 +177,7 @@ class EmployeUI(QWidget):
             self.archive_checkbox.hide()
             
         # table widget setup
-        liste_columns = ["Matricule", "Nom", "Prénom", "Genre", "Poste", "Departement"]
+        liste_columns = ["Matricule", "Nom", "Prénom", "Genre", "Poste", "Service"]
         self.nb_col = len(liste_columns)
         self.tableWidget.setColumnCount(self.nb_col)
         self.tableWidget.setHorizontalHeaderLabels(liste_columns)
@@ -195,7 +186,6 @@ class EmployeUI(QWidget):
         # slots
         self.ajouter_button.clicked.connect(self.ouvrirDialogAjout)
         self.archive_checkbox.stateChanged.connect(self.initListeEmp)
-        self.archiver_button.clicked.connect(self.archiver)
         self.modifier_button.clicked.connect(self.modifier)
         self.rechercher_button.clicked.connect(self.rechercher)
     def ouvrirDialogAjout(self):
@@ -203,7 +193,7 @@ class EmployeUI(QWidget):
         self.menu_ajouter.show()
         self.menu_ajouter.update_liste_emp.connect(self.initListeEmp)
 
-    def remplirListeDep(self, listeEmp):
+    def remplirListeService(self, listeEmp):
         taille = len(listeEmp)
         self.tableWidget.setRowCount(taille)
         x = 0
@@ -214,7 +204,7 @@ class EmployeUI(QWidget):
             genre = "Femme" if instance.genre else "Homme"
             self.tableWidget.setItem(x, 3, QTableWidgetItem(genre))
             self.tableWidget.setItem(x, 4, QTableWidgetItem(instance.poste))
-            self.tableWidget.setItem(x, 5, QTableWidgetItem(instance.code_dep))
+            self.tableWidget.setItem(x, 5, QTableWidgetItem(instance.code_service))
             x += 1
     def initListeEmp(self):
         with Session(engine) as session:
@@ -222,38 +212,7 @@ class EmployeUI(QWidget):
                 result = session.query(Employe).filter_by(archive=True).all()
             else:
                 result = session.query(Employe).filter_by(archive=False).all()
-            self.remplirListeDep(result)
-        
-    def archiver(self):
-        if not self.archive_checkbox.isChecked():
-            selected = self.tableWidget.selectedItems()
-            codesupp = []
-            for i in range(0, len(selected), self.nb_col):
-                codesupp.append(selected[i].text())
-            msgbox = QMessageBox()
-            msgbox.setIcon(QMessageBox.Information)
-            listecodes = ",\n".join(codesupp)
-            msgbox.setText("Voulez vous archiver ces employés?\n"+listecodes)
-            msgbox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-            returnvalue = msgbox.exec()
-            if returnvalue == QMessageBox.Ok:
-                with Session(bind=engine) as session:
-                    for code in codesupp:
-                        try:
-                            session.query(Employe).filter_by(matricule=code).update({"archive": True})
-                            session.commit()
-                            self.initListeEmp()
-                        except Exception as e:
-                            msgbox2 = QMessageBox()
-                            msgbox2.setIcon(QMessageBox.Warning)
-                            print(e)
-                            msgbox2.setText("Erreur dans l'archivage de "+ code)
-                            msgbox2.exec()
-        else:
-            msgbox2 = QMessageBox()
-            msgbox2.setIcon(QMessageBox.Warning)
-            msgbox2.setText("Ces employés est déjà dans l'archive")
-            msgbox2.exec()
+            self.remplirListeService(result)
             
     def modifier(self):
         
@@ -285,6 +244,6 @@ class EmployeUI(QWidget):
                 elif mode_recherche=="Matricule":
                     liste_resultat = session.query(Employe).filter_by(matricule=recherche, archive=etat_archive).all()
                 else:
-                    liste_resultat = session.query(Employe).filter_by(code_dep=recherche, archive=etat_archive).all()
-            self.remplirListeDep(liste_resultat)
+                    liste_resultat = session.query(Employe).filter_by(code_service=recherche, archive=etat_archive).all()
+            self.remplirListeService(liste_resultat)
             

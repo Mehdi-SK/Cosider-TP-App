@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>781</width>
-    <height>548</height>
+    <height>550</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -109,7 +109,7 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
      </item>
      <item>
       <property name="text">
-       <string>Departement</string>
+       <string>Service</string>
       </property>
      </item>
     </widget>
@@ -130,13 +130,6 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
        </property>
        <property name="text">
         <string>Modifier</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="archiver_button">
-       <property name="text">
-        <string>Archiver</string>
        </property>
       </widget>
      </item>
@@ -179,106 +172,6 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
      <property name="sortingEnabled">
       <bool>true</bool>
      </property>
-     <row>
-      <property name="text">
-       <string>1</string>
-      </property>
-     </row>
-     <row>
-      <property name="text">
-       <string>2</string>
-      </property>
-     </row>
-     <column>
-      <property name="text">
-       <string>Matricule</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Nom</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Prénom</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Genre</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Poste</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>Service</string>
-      </property>
-     </column>
-     <item row="0" column="0">
-      <property name="text">
-       <string>10</string>
-      </property>
-     </item>
-     <item row="0" column="1">
-      <property name="text">
-       <string>BELKADI</string>
-      </property>
-     </item>
-     <item row="0" column="2">
-      <property name="text">
-       <string>Sidahmed</string>
-      </property>
-     </item>
-     <item row="0" column="3">
-      <property name="text">
-       <string>Homme</string>
-      </property>
-     </item>
-     <item row="0" column="4">
-      <property name="text">
-       <string>Informaticien</string>
-      </property>
-     </item>
-     <item row="0" column="5">
-      <property name="text">
-       <string>Informatique</string>
-      </property>
-     </item>
-     <item row="1" column="0">
-      <property name="text">
-       <string>69</string>
-      </property>
-     </item>
-     <item row="1" column="1">
-      <property name="text">
-       <string>BELLOUTI</string>
-      </property>
-     </item>
-     <item row="1" column="2">
-      <property name="text">
-       <string>Wassim Rayane</string>
-      </property>
-     </item>
-     <item row="1" column="3">
-      <property name="text">
-       <string>Homme</string>
-      </property>
-     </item>
-     <item row="1" column="4">
-      <property name="text">
-       <string>Ingénieur civil</string>
-      </property>
-     </item>
-     <item row="1" column="5">
-      <property name="text">
-       <string>Controle</string>
-      </property>
-     </item>
     </widget>
    </item>
    <item row="0" column="5">

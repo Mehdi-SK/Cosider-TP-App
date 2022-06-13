@@ -14,7 +14,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Ajouter employé</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icon.png</normaloff>icon.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">*{
@@ -22,7 +26,7 @@
 }
 #Dialog{
 	
-	background-color: rgb(255, 255, 255);
+	background-color: #eee;
 	font: 10pt;
 }
 
@@ -98,7 +102,7 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
         </size>
        </property>
        <property name="text">
-        <string>Matricule</string>
+        <string>Matricule:</string>
        </property>
        <property name="textInteractionFlags">
         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
@@ -127,7 +131,7 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
         </size>
        </property>
        <property name="text">
-        <string>Nom</string>
+        <string>Nom:</string>
        </property>
       </widget>
      </item>
@@ -147,7 +151,7 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
         </size>
        </property>
        <property name="text">
-        <string>Prénom</string>
+        <string>Prénom:</string>
        </property>
       </widget>
      </item>
@@ -158,8 +162,8 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_6">
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_5">
        <property name="minimumSize">
         <size>
          <width>100</width>
@@ -167,29 +171,9 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
         </size>
        </property>
        <property name="text">
-        <string>Poste</string>
+        <string>Genre:</string>
        </property>
       </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLineEdit" name="poste">
-       <property name="clearButtonEnabled">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1">
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
      </item>
      <item row="3" column="1">
       <widget class="QComboBox" name="combo_genre">
@@ -205,8 +189,8 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
        </item>
       </widget>
      </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_5">
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_6">
        <property name="minimumSize">
         <size>
          <width>100</width>
@@ -214,12 +198,16 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
         </size>
        </property>
        <property name="text">
-        <string>Genre</string>
+        <string>Poste:</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
-      <widget class="QComboBox" name="combo_dep"/>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="poste">
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
      <item row="5" column="0">
       <widget class="QLabel" name="label_7">
@@ -230,9 +218,25 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
         </size>
        </property>
        <property name="text">
-        <string>Departement</string>
+        <string>Service:</string>
        </property>
       </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QComboBox" name="combo_ser"/>
+     </item>
+     <item row="6" column="1">
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>
