@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>690</width>
-    <height>423</height>
+    <height>421</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>icon1.png</normaloff>icon1.png</iconset>
+    <normaloff>icon.png</normaloff>icon.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow{
@@ -43,7 +43,7 @@ QMenuBar::item:selected{
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
-    <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+    <item alignment="Qt::AlignHCenter">
      <widget class="QLabel" name="img">
       <property name="styleSheet">
        <string notr="true"/>
@@ -86,8 +86,8 @@ QMenuBar::item:selected{
        <normaloff>:/icon/icon.png</normaloff>:/icon/icon.png</iconset>
      </property>
      <addaction name="actionemploye"/>
-     <addaction name="actiondepartement"/>
      <addaction name="actionservice"/>
+     <addaction name="actionstr"/>
      <addaction name="actionprojet"/>
      <addaction name="actionetat"/>
     </widget>
@@ -162,9 +162,9 @@ QMenuBar::item:selected{
     <string>Employés</string>
    </property>
   </action>
-  <action name="actionservice">
+  <action name="actionstr">
    <property name="text">
-    <string>Service</string>
+    <string>Structure</string>
    </property>
   </action>
   <action name="actionprojet">
@@ -172,9 +172,9 @@ QMenuBar::item:selected{
     <string>Projet</string>
    </property>
   </action>
-  <action name="actiondepartement">
+  <action name="actionservice">
    <property name="text">
-    <string>Département</string>
+    <string>Service</string>
    </property>
   </action>
   <action name="actionmateriel_informatique">

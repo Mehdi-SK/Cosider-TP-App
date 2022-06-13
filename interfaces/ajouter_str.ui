@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Ajouter Structure</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icon.png</normaloff>icon.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">*{
@@ -19,7 +23,7 @@
 }
 #Dialog{
 	
-	background-color: rgb(255, 255, 255);
+	background-color:#eee;
 	font: 10pt;
 }
 
@@ -92,12 +96,12 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
         </size>
        </property>
        <property name="text">
-        <string>Code Département</string>
+        <string>Code Structure:</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="codedep"/>
+      <widget class="QLineEdit" name="codestr"/>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_2">
@@ -108,12 +112,12 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
         </size>
        </property>
        <property name="text">
-        <string>Nom Département</string>
+        <string>Nom de structure:</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QTextEdit" name="nomdep">
+      <widget class="QTextEdit" name="nomstr">
        <property name="maximumSize">
         <size>
          <width>16777215</width>
@@ -122,7 +126,7 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
+     <item row="2" column="1">
       <spacer name="verticalSpacer">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -134,22 +138,6 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
         </size>
        </property>
       </spacer>
-     </item>
-     <item row="2" column="1">
-      <widget class="QComboBox" name="combo_service"/>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Service:</string>
-       </property>
-      </widget>
      </item>
     </layout>
    </item>

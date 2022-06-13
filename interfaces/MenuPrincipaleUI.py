@@ -5,6 +5,7 @@ from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import Qt
 from os import path
+
 from Interfaces.AuthentificationUI import Authentification
 from Interfaces.FournisseurUI import FournisseurUI
 from Interfaces.EmployeUI import EmployeUI
@@ -13,8 +14,9 @@ from Interfaces.ListeMatInfoUI import ListMatInfoUI
 from Interfaces.ListeTransfers import ListeTransfers
 from Interfaces.ProjetsUI import ProjetsUI
 from Interfaces.ServicesUI import ServiceUI
-from Interfaces.DepartementUI import DepartmentUI
+from Interfaces.StructureUI import StructureUI
 from Interfaces.UtilisateursUI import UtilisateursUI
+
 from database import engine
 
 class MenuPrincipale(QMainWindow):
@@ -41,7 +43,7 @@ class MenuPrincipale(QMainWindow):
         self.actiondeconnection.triggered.connect(self.handleDeconnexion)
         self.actionprojet.triggered.connect(self.ouvrirMenuProjets)
         self.actionservice.triggered.connect(self.ouvrirMenuServices)  
-        self.actiondepartement.triggered.connect(self.ouvrirMenuDepartements)
+        self.actionstr.triggered.connect(self.ouvrirMenuStr)
         self.actionUtilisateurs.triggered.connect(self.ouvrirMenuUtilisateurs)
 
         self.start()
@@ -98,8 +100,8 @@ class MenuPrincipale(QMainWindow):
         self.menu_service.setWindowModality(Qt.ApplicationModal)
         self.menu_service.show()
     
-    def ouvrirMenuDepartements(self):
-        self.menu_dep = DepartmentUI(adminFlag=self.adminFlag)
+    def ouvrirMenuStr(self):
+        self.menu_dep = StructureUI(adminFlag=self.adminFlag)
         self.menu_dep.setWindowModality(Qt.ApplicationModal)
         self.menu_dep.show()
     

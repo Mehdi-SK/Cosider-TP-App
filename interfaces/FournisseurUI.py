@@ -7,6 +7,7 @@ from GestionMateriels.Fournisseur import Fournisseur
 
 from sqlalchemy.orm import Session
 from database import engine
+# TODO add regular expressions
 
 class DialogAjouter(QDialog):
     update_liste_fr = pyqtSignal()

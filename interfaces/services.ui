@@ -2,16 +2,23 @@
 <ui version="4.0">
  <class>Form</class>
  <widget class="QWidget" name="Form">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>433</width>
-    <height>494</height>
+    <width>653</width>
+    <height>263</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Liste des services</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icon.png</normaloff>icon.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">*{
@@ -19,7 +26,7 @@
 }
 #Form{
 	
-	background-color: rgb(255, 255, 255);
+	background-color: #eee;
 	font: 10pt;
 }
 
@@ -67,7 +74,7 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
                                 stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1);
 }
 QTableWidget{
-	background-color:rgb(222, 222, 222);
+	background-color:white;
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">

@@ -10,10 +10,10 @@ def init_db():
     from GestionStrucutre.Employe import Employe
     from GestionStrucutre.Projet import Projet
     from GestionStrucutre.Service import Service
-    from GestionStrucutre.Departement import Departement
+    from GestionStrucutre.Structure import Structure
     from GestionMateriels.Informatique import Informatique  
     from GestionMateriels.Bureautique import Bureautique
-    from GestionMateriels.Affectation import Affectation  
+    from GestionMateriels.Affectation import Affectation, mat_affectation_bureau, mat_affectation_info
     from GestionMateriels.Transfert import Transfert
     from GestionMateriels.Fournisseur import Fournisseur
     

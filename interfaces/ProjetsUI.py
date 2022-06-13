@@ -44,6 +44,7 @@ class AjouterProjet(QDialog):
         """Fonction qui affiche les erreurs qui peuvent apparaitre pendant l'ajout"""
         msgbox = QMessageBox()
         msgbox.setStandardButtons(QMessageBox.Ok)
+        msgbox.setWindowTitle("Informations")
         if type_erreur == 0:
             msgbox.setIcon(QMessageBox.Information)
             msgbox.setText("Projet ajouté.")
@@ -68,7 +69,11 @@ class ProjetsUI(QWidget):
             self.ajouter_button.hide()
         self.tableWidget.setColumnCount(3)
         self.tableWidget.setHorizontalHeaderLabels(["Code Projet", "Nom de projet", "Adresse"])
-        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        # self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        header = self.tableWidget.horizontalHeader()
+        header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(1, QHeaderView.Stretch)
+        header.setSectionResizeMode(2, QHeaderView.Stretch)
         
         self.initListeProjets()
         self.ajouter_button.clicked.connect(self.ouvrirAjout)
@@ -101,12 +106,13 @@ class ProjetsUI(QWidget):
             codepSupp.append(selected[i].text())
         msgbox = QMessageBox()
         msgbox.setIcon(QMessageBox.Information)
+        msgbox.setWindowTitle("Confirmation")
         listep = ",".join(codepSupp)
         if len(listep) == 0:
             msgbox.setText("Choisir le(s) projet(s) à supprimer")
             msgbox.setStandardButtons(QMessageBox.Ok)
         else:
-            msgbox.setText("Voulez vous supprimer ces projets\n"+listep)
+            msgbox.setText("Voulez vous supprimer ces projets:\n"+listep)
             msgbox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         returnvalue = msgbox.exec()
         
@@ -120,6 +126,7 @@ class ProjetsUI(QWidget):
                     except:
                         msgbox2 = QMessageBox()
                         msgbox2.setIcon(QMessageBox.Warning)
+                        msgbox2.setWindowTitle("Informations")
                         msgbox2.setText("Erreur dans la supression")
                         msgbox2.exec()
 
@@ -132,6 +139,7 @@ class ProjetsUI(QWidget):
                     self.remplirListe(resultat)
                 else:
                     msgbox = QMessageBox()
+                    msgbox.setWindowTitle("Informations")
                     msgbox.setText("Aucun resultat trouvé")
                     msgbox.exec()
         else:

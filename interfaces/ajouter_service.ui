@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>Dialog</class>
  <widget class="QDialog" name="Dialog">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +14,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Ajouter service</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icon.png</normaloff>icon.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">*{
@@ -19,7 +26,7 @@
 }
 #Dialog{
 	
-	background-color: rgb(255, 255, 255);
+	background-color: #eee;
 	font: 10pt;
 }
 
@@ -134,6 +141,16 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
         </size>
        </property>
       </spacer>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="structureLabel">
+       <property name="text">
+        <string>Structure:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QComboBox" name="str_combo"/>
      </item>
     </layout>
    </item>

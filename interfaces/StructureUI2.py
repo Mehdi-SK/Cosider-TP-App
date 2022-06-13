@@ -2,17 +2,17 @@ from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import QWidget, QDialog, QMessageBox, QTableWidgetItem, QHeaderView
 from PyQt5.QtCore import pyqtSignal, Qt
 from os import path
-from GestionStrucutre.Departement import Departement
+from GestionStrucutre.Structure import Structure
 from GestionStrucutre.Service import Service
 from sqlalchemy.orm import Session
 from database import engine
 
 class DialogAjouter(QDialog):
     
-    update_liste_dep = pyqtSignal()
+    update_liste_str = pyqtSignal()
     def __init__(self, parent=None):
         super().__init__(parent)
-        loadUi(path.join(path.dirname(__file__), "ajouter_dep.ui"), self)
+        loadUi(path.join(path.dirname(__file__), "ajouter_str.ui"), self)
         self.confirmer_button.clicked.connect(self.ajouterDep)
         
         with Session(engine) as session:
@@ -37,7 +37,7 @@ class DialogAjouter(QDialog):
                         session.add(dep)
                         session.commit()
                         self.showErreur(0)
-                        self.update_liste_dep.emit()
+                        self.update_liste_str.emit()
                     except:
                         self.showErreur(3)
                 
@@ -79,7 +79,7 @@ class DialogModifier(QDialog):
         self.mail.setText(self.result.email)
         self.loc.setText(self.result.loc)
     
-class DepartmentUI(QWidget):
+class StructureUI(QWidget):
     def __init__(self, adminFlag, parent=None):
         super().__init__(parent)
         loadUi(path.join(path.dirname(__file__), "departements.ui"), self)
@@ -101,7 +101,7 @@ class DepartmentUI(QWidget):
         self.menu_ajouter = DialogAjouter()
         self.menu_ajouter.setWindowModality(Qt.ApplicationModal)
         self.menu_ajouter.show()
-        self.menu_ajouter.update_liste_dep.connect(self.initListeDep)
+        self.menu_ajouter.update_liste_str.connect(self.initListeDep)
     
     def remplirListeDep(self, listeDep):
         taille = len(listeDep)

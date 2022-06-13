@@ -3,7 +3,7 @@ from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import QWidget, QDialog, QMessageBox, QTableWidgetItem, QHeaderView
 from PyQt5.QtCore import pyqtSignal, Qt
 from os import path
-from GestionStrucutre.Departement import Departement
+from GestionStrucutre.Service import Service
 from GestionStrucutre.Employe import Employe
 
 from sqlalchemy.orm import Session
@@ -18,8 +18,8 @@ class DialogAjout(QDialog):
         self.confirmer_button.clicked.connect(self.ajouterEmp)
         
         with Session(engine) as session:
-            liste_dep = session.query(Departement.code_dep).all()
-        for dep in liste_dep:
+            liste_services = session.query(Service.code_service).all()
+        for dep in liste_services:
             self.combo_dep.addItem(dep[0])
     
     

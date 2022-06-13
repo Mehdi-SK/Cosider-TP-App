@@ -1,1 +1,5 @@
 1- fix date dans liste materiel update
+
+2- Ajouter regular expression to fournisseurs 
+    https://www.geeksforgeeks.org/check-if-email-address-valid-or-not-in-python/
+    https://stackoverflow.com/questions/41087993/user-input-validation-in-pyqt5-and-python

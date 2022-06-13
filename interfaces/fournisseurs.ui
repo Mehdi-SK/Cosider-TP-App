@@ -13,13 +13,17 @@
   <property name="windowTitle">
    <string>Liste des fournisseurs</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icon.png</normaloff>icon.png</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">*{
 	font: 10pt;
 }
 #Form{
 	
-	background-color: rgb(255, 255, 255);
+	background-color:#eeeeee;
 	font: 10pt;
 }
 

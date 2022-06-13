@@ -5,7 +5,9 @@ from PyQt5.QtWidgets import QWidget
 from os import path
 from GestionAuthentification.Utilisateur import Utilisateur
 from sqlalchemy.orm import Session
-from database import engine
+from database import engine, Global
+
+
 class Authentification(QWidget):
     showMenuPrincipalSignal = pyqtSignal(int)
 
@@ -31,6 +33,7 @@ class Authentification(QWidget):
                                                     Utilisateur.mot_de_passe==pwd)
                 if result.count()>0:
                     self.connecter(result[0].admin_flag)
+                    Global.utilisateur = result[0].login
                 else:
                     self.error_label.setText('Mot de passe ou utilisateur incorrecte')
 

@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>Form</class>
  <widget class="QWidget" name="Form">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +14,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Projets</string>
+   <string>Liste des projets</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icon.png</normaloff>icon.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">*{
@@ -19,7 +26,7 @@
 }
 #Form{
 	
-	background-color: rgb(255, 255, 255);
+	background-color: #eee;
 	font: 10pt;
 }
 
@@ -67,7 +74,8 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
                                 stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1);
 }
 QTableWidget{
-	background-color:rgb(222, 222, 222);
+	
+	background-color: rgb(255, 255, 255);
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
@@ -80,6 +88,9 @@ QTableWidget{
    </item>
    <item row="1" column="1" colspan="2">
     <widget class="QTableWidget" name="tableWidget">
+     <property name="frameShadow">
+      <enum>QFrame::Sunken</enum>
+     </property>
      <property name="sizeAdjustPolicy">
       <enum>QAbstractScrollArea::AdjustToContents</enum>
      </property>
@@ -92,6 +103,30 @@ QTableWidget{
      <property name="selectionBehavior">
       <enum>QAbstractItemView::SelectRows</enum>
      </property>
+     <property name="textElideMode">
+      <enum>Qt::ElideNone</enum>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+     <attribute name="horizontalHeaderCascadingSectionResizes">
+      <bool>true</bool>
+     </attribute>
+     <attribute name="horizontalHeaderMinimumSectionSize">
+      <number>70</number>
+     </attribute>
+     <attribute name="horizontalHeaderStretchLastSection">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="verticalHeaderMinimumSectionSize">
+      <number>30</number>
+     </attribute>
+     <attribute name="verticalHeaderDefaultSectionSize">
+      <number>50</number>
+     </attribute>
+     <attribute name="verticalHeaderStretchLastSection">
+      <bool>false</bool>
+     </attribute>
     </widget>
    </item>
    <item row="1" column="3">
