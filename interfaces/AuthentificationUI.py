@@ -26,6 +26,7 @@ class Authentification(QWidget):
             self.error_label.setText('Veuillez remplir tout les champs')
             # REMOVE THIS ONE
             self.connecter(1)
+            Global.utilisateur= "Admin"
             # REMOVE THIS ONE
         else:                 
             with Session(engine) as session:

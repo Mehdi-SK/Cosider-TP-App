@@ -14,7 +14,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Modifier materiel informatique</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icon.png</normaloff>icon.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">*{
@@ -22,7 +26,7 @@
 }
 #Dialog{
 	
-	background-color: rgb(255, 255, 255);
+	background-color:#eee;
 	font: 10pt;
 }
 
@@ -79,7 +83,7 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
      <item row="0" column="0">
       <widget class="QLabel" name="codeInvLabel">
        <property name="text">
-        <string>CodeInv</string>
+        <string>Code Inventaire</string>
        </property>
       </widget>
      </item>
@@ -91,9 +95,9 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="numSerieLabel">
+      <widget class="QLabel" name="numSerieLabel_2">
        <property name="text">
-        <string>NumSerie</string>
+        <string>Num Série*</string>
        </property>
       </widget>
      </item>
@@ -107,7 +111,7 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
      <item row="2" column="0">
       <widget class="QLabel" name="codeCategorieLabel">
        <property name="text">
-        <string>Code Categorie</string>
+        <string>Code Categorie*</string>
        </property>
       </widget>
      </item>
@@ -115,49 +119,34 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
       <widget class="QLineEdit" name="codecat"/>
      </item>
      <item row="3" column="0">
-      <widget class="QLabel" name="designationLabel">
+      <widget class="QLabel" name="marqueLabel">
        <property name="text">
-        <string>Designation</string>
+        <string>Marque*</string>
        </property>
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QLineEdit" name="desg"/>
+      <widget class="QLineEdit" name="mrq"/>
      </item>
      <item row="4" column="0">
-      <widget class="QLabel" name="marqueLabel">
+      <widget class="QLabel" name="typeLabel">
        <property name="text">
-        <string>Marque</string>
+        <string>Type*</string>
        </property>
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="QLineEdit" name="mrq"/>
+      <widget class="QLineEdit" name="typ"/>
      </item>
      <item row="5" column="0">
-      <widget class="QLabel" name="typeLabel">
+      <widget class="QLabel" name="etatLabel">
        <property name="text">
-        <string>Type</string>
+        <string>Etat*</string>
        </property>
       </widget>
      </item>
      <item row="5" column="1">
-      <widget class="QLineEdit" name="typ"/>
-     </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="etatLabel">
-       <property name="text">
-        <string>Etat</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
       <widget class="QComboBox" name="et">
-       <item>
-        <property name="text">
-         <string>En service</string>
-        </property>
-       </item>
        <item>
         <property name="text">
          <string>En panne</string>
@@ -175,38 +164,38 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
        </item>
       </widget>
      </item>
-     <item row="7" column="0">
+     <item row="6" column="0">
       <widget class="QLabel" name="processeurLabel">
        <property name="text">
         <string>Processeur</string>
        </property>
       </widget>
      </item>
-     <item row="7" column="1">
+     <item row="6" column="1">
       <widget class="QLineEdit" name="process"/>
      </item>
-     <item row="8" column="1">
+     <item row="7" column="1">
       <widget class="Line" name="line">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
-     <item row="9" column="1">
+     <item row="8" column="1">
       <widget class="QLabel" name="label">
        <property name="text">
         <string>Informations d'achat</string>
        </property>
       </widget>
      </item>
-     <item row="10" column="0">
+     <item row="9" column="0">
       <widget class="QLabel" name="typeAchatLabel">
        <property name="text">
-        <string>Type Achat</string>
+        <string>Type Achat*</string>
        </property>
       </widget>
      </item>
-     <item row="10" column="1">
+     <item row="9" column="1">
       <widget class="QComboBox" name="tachat">
        <item>
         <property name="text">
@@ -220,67 +209,23 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
        </item>
       </widget>
      </item>
-     <item row="11" column="0">
+     <item row="10" column="0">
       <widget class="QLabel" name="dateAcquisitionLabel">
        <property name="text">
-        <string>Date Acquisition</string>
+        <string>Date Acquisition*</string>
        </property>
       </widget>
      </item>
-     <item row="12" column="0">
-      <widget class="QLabel" name="prixHTLabel">
-       <property name="text">
-        <string>Prix HT</string>
-       </property>
-      </widget>
-     </item>
-     <item row="12" column="1">
-      <widget class="QLineEdit" name="prixHTLineEdit"/>
-     </item>
-     <item row="13" column="0">
-      <widget class="QLabel" name="garantieLabel">
-       <property name="text">
-        <string>Garantie(mois)</string>
-       </property>
-      </widget>
-     </item>
-     <item row="13" column="1">
-      <widget class="QLineEdit" name="garantieLineEdit"/>
-     </item>
-     <item row="14" column="0">
-      <widget class="QLabel" name="numBCLabel">
-       <property name="text">
-        <string>Num BC</string>
-       </property>
-      </widget>
-     </item>
-     <item row="14" column="1">
-      <widget class="QLineEdit" name="numBCLineEdit"/>
-     </item>
-     <item row="15" column="0">
-      <widget class="QLabel" name="numFactureLabel">
-       <property name="text">
-        <string>Num Facture</string>
-       </property>
-      </widget>
-     </item>
-     <item row="15" column="1">
-      <widget class="QLineEdit" name="numFactureLineEdit"/>
-     </item>
-     <item row="16" column="0">
-      <widget class="QLabel" name="nomFournisseurLabel">
-       <property name="text">
-        <string>Nom Fournisseur</string>
-       </property>
-      </widget>
-     </item>
-     <item row="16" column="1">
-      <widget class="QComboBox" name="nomFournisseurComboBox"/>
-     </item>
-     <item row="11" column="1">
+     <item row="10" column="1">
       <widget class="QDateEdit" name="dtacq">
+       <property name="frame">
+        <bool>true</bool>
+       </property>
        <property name="displayFormat">
-        <string>d-M-yyyy</string>
+        <string>dd-MM-yyyy</string>
+       </property>
+       <property name="calendarPopup">
+        <bool>true</bool>
        </property>
        <property name="date">
         <date>
@@ -288,6 +233,63 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
          <month>6</month>
          <day>1</day>
         </date>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="0">
+      <widget class="QLabel" name="prixHTLabel">
+       <property name="text">
+        <string>Prix HT*</string>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="1">
+      <widget class="QLineEdit" name="prixHTLineEdit"/>
+     </item>
+     <item row="12" column="0">
+      <widget class="QLabel" name="garantieLabel">
+       <property name="text">
+        <string>Garantie(mois)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="12" column="1">
+      <widget class="QLineEdit" name="garantieLineEdit"/>
+     </item>
+     <item row="13" column="0">
+      <widget class="QLabel" name="numBCLabel">
+       <property name="text">
+        <string>Num BC*</string>
+       </property>
+      </widget>
+     </item>
+     <item row="13" column="1">
+      <widget class="QLineEdit" name="numBCLineEdit"/>
+     </item>
+     <item row="14" column="0">
+      <widget class="QLabel" name="numFactureLabel">
+       <property name="text">
+        <string>Num Facture*</string>
+       </property>
+      </widget>
+     </item>
+     <item row="14" column="1">
+      <widget class="QLineEdit" name="numFactureLineEdit"/>
+     </item>
+     <item row="15" column="0">
+      <widget class="QLabel" name="nomFournisseurLabel">
+       <property name="text">
+        <string>Nom Fournisseur</string>
+       </property>
+      </widget>
+     </item>
+     <item row="15" column="1">
+      <widget class="QComboBox" name="nomFournisseurComboBox"/>
+     </item>
+     <item row="16" column="1">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>*Champs nécessaires</string>
        </property>
       </widget>
      </item>

@@ -14,7 +14,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Ajouter Fournisseur</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icon.png</normaloff>icon.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">*{
@@ -22,7 +26,7 @@
 }
 #Dialog{
 	
-	background-color: rgb(255, 255, 255);
+	background-color: #EEE;
 	font: 10pt;
 }
 

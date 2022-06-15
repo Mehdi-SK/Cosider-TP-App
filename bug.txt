@@ -1,11 +1,41 @@
-1- fix date dans liste materiel update
+1- fix date dans liste materiel update : done
 
-2- Ajouter regular expression to fournisseurs 
+2- Ajouter regular expression to fournisseurs email
     https://www.geeksforgeeks.org/check-if-email-address-valid-or-not-in-python/
     https://stackoverflow.com/questions/41087993/user-input-validation-in-pyqt5-and-python
 
 
+etape:
+ finir menu info (affecter, transferer, recherche)
+ finir menu bureau (tout)
+ finir menu transfert (affichage recherhce)
+ finir menu affectations (affichage recherche)
+ finir menu utilisateurs (fix)
+ finir a propos
+ finir codification
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def archiver(self):
+
         if not self.archive_checkbox.isChecked():
             selected = self.tableWidget.selectedItems()
             codesupp = []

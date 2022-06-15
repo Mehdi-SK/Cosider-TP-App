@@ -27,6 +27,6 @@ class Bureautique(Base):
     ntransfer = Column(Integer, ForeignKey("transferts.numt", ondelete="SET NULL"))
     
     employe = relationship("Employe")
-    transfer = relationship("Transfert")
+    transfert = relationship("Transfert")
     
     affectations = relationship("Affectation", secondary=mat_affectation_bureau, back_populates="matBureau")

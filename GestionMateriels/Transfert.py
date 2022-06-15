@@ -17,3 +17,4 @@ class Transfert(Base):
     user = relationship("Utilisateur")
     
     equip_info = relationship("Informatique", back_populates="transfert")
+    equip_bureau = relationship("Bureautique", back_populates="transfert")

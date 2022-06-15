@@ -13,13 +13,17 @@
   <property name="windowTitle">
    <string>Liste des materiels informatique</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icon.png</normaloff>icon.png</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">*{
 	font: 10pt;
 }
-#Form{
+#liste_mat{
 	
-	background-color: rgb(255, 255, 255);
+	background-color: #EEE;
 	font: 10pt;
 }
 
@@ -66,12 +70,49 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
                                 stop: 0 #D3D3D3, stop: 0.4 #D8D8D8,
                                 stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1);
 }
-QTableWidget{
-	
+QHeaderView::section {
+	padding-left: 4px;
+    border: 1px solid #6c6c6c;
+}
+QTableView {
+	border-bottom: 1px solid #6c6c6c;
+}
+QTableView:!active {
+    selection-background-color: palette(highlight);
+    selection-color: palette(highlighted-text);
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
+   <item row="1" column="0">
+    <widget class="QLabel" name="label">
+     <property name="maximumSize">
+      <size>
+       <width>100</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Etat:</string>
+     </property>
+     <property name="scaledContents">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="2">
+    <widget class="QPushButton" name="annuler_button">
+     <property name="maximumSize">
+      <size>
+       <width>100</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Annuler</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QComboBox" name="recherche_combo">
@@ -89,7 +130,7 @@ QTableWidget{
        </property>
        <item>
         <property name="text">
-         <string>Code inv</string>
+         <string>Code inventaire</string>
         </property>
        </item>
        <item>
@@ -102,11 +143,6 @@ QTableWidget{
          <string>Catégorie</string>
         </property>
        </item>
-       <item>
-        <property name="text">
-         <string>Etat</string>
-        </property>
-       </item>
       </widget>
      </item>
      <item>
@@ -116,16 +152,43 @@ QTableWidget{
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="rechercher_button">
-       <property name="text">
-        <string>Recherche</string>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
-   <item row="1" column="0">
+   <item row="1" column="1">
+    <widget class="QComboBox" name="choix_etat">
+     <item>
+      <property name="text">
+       <string/>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>En service</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>En panne</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Stock</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Transferé</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Archive</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2">
     <widget class="QTableWidget" name="tableWidget">
      <property name="styleSheet">
       <string notr="true"/>
@@ -134,7 +197,7 @@ QTableWidget{
       <set>QAbstractItemView::NoEditTriggers</set>
      </property>
      <property name="alternatingRowColors">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <property name="selectionMode">
       <enum>QAbstractItemView::MultiSelection</enum>
@@ -156,10 +219,16 @@ QTableWidget{
      </property>
     </widget>
    </item>
-   <item row="1" column="2">
+   <item row="3" column="2">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QPushButton" name="ajouter_button">
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="text">
         <string>Ajouter</string>
        </property>
@@ -167,6 +236,12 @@ QTableWidget{
      </item>
      <item>
       <widget class="QPushButton" name="modifier_button">
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="text">
         <string>Modifier</string>
        </property>
@@ -174,6 +249,12 @@ QTableWidget{
      </item>
      <item>
       <widget class="QPushButton" name="affecter_button">
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="text">
         <string>Affecter</string>
        </property>
@@ -181,6 +262,12 @@ QTableWidget{
      </item>
      <item>
       <widget class="QPushButton" name="transfer_button">
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="text">
         <string>Transferer</string>
        </property>
@@ -196,7 +283,7 @@ QTableWidget{
        </property>
        <property name="maximumSize">
         <size>
-         <width>12321313</width>
+         <width>100</width>
          <height>50</height>
         </size>
        </property>
@@ -220,17 +307,10 @@ QTableWidget{
      </item>
     </layout>
    </item>
-   <item row="2" column="2">
-    <widget class="QPushButton" name="annuler_button">
-     <property name="text">
-      <string>Annuler</string>
-     </property>
-    </widget>
-   </item>
    <item row="0" column="2">
-    <widget class="QCheckBox" name="archive_checkbox">
+    <widget class="QPushButton" name="rechercher_button">
      <property name="text">
-      <string>Archive</string>
+      <string>Recherche</string>
      </property>
     </widget>
    </item>
@@ -245,8 +325,8 @@ QTableWidget{
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>799</x>
-     <y>434</y>
+     <x>690</x>
+     <y>446</y>
     </hint>
     <hint type="destinationlabel">
      <x>423</x>

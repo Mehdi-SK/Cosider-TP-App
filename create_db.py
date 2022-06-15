@@ -21,7 +21,7 @@ def init_db():
     
     with Session(bind=engine) as session:
         try: 
-            session.add(Utilisateur(id="0", login="Admin", mot_de_passe="Admin", admin_flag=1))
+            session.add(Utilisateur(login="Admin", mot_de_passe="Admin", admin_flag=1))
             session.commit()
         except :
             pass 
