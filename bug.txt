@@ -6,18 +6,20 @@
 
 
 etape:
- finir menu info (affecter, transferer, recherche)
+
+ 
  finir menu bureau (tout)
- finir menu transfert (affichage recherhce)
- finir menu affectations (affichage recherche)
  finir menu utilisateurs (fix)
+
  finir a propos
  finir codification
+ fournisseur: domaine activite
+
+ ajouter code cat collection
+ fichier config
 
 
-
-
-
+msgbox.setWindowIcon(QIcon("./Interfaces/icon.png"))
 
 
 
