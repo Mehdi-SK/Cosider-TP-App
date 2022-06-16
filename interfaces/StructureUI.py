@@ -41,6 +41,8 @@ class DialogAjouter(QDialog):
         msgbox = QMessageBox()
         msgbox.setStandardButtons(QMessageBox.Ok)
         msgbox.setWindowTitle("Information")
+        msgbox.setWindowIcon(QIcon("./Interfaces/icon.png"))
+
         # TODO add icon
         if code == 0:
             msgbox.setText("Structure Ajouté")

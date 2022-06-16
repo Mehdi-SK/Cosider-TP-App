@@ -23,7 +23,7 @@
 }
 #Form{
 	
-	background-color: rgb(255, 255, 255);
+	background-color: #eee;
 	font: 10pt;
 }
 
@@ -71,7 +71,7 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
                                 stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1);
 }
 QTableWidget{
-	background-color:rgb(222, 222, 222);
+
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">

@@ -35,6 +35,7 @@ class ListMatBureauUi(QWidget):
         self.affecter_button.clicked.connect(self.ouvrirAffectation)
         self.transfer_button.clicked.connect(self.ouvrirTransfert)
         self.qr_button.clicked.connect(self.genererQR)
+        self.rechercher_button.clicked.connect(self.rechercher)
         self.initListeMat()
         
         
@@ -107,6 +108,7 @@ class ListMatBureauUi(QWidget):
             for i in range(0, len(selected)):
                 if selected[i].column() == 0:
                     codeInvAffect.append(selected[i].text())
+            
             self.dialogAffect = DialogAffecter(codeInvAffect)
             self.dialogAffect.show()
             self.dialogAffect.update_liste_mat.connect(self.initListeMat)
@@ -195,6 +197,42 @@ class ListMatBureauUi(QWidget):
         newpath = filedir+"/"+nomfichier+".png"
         shutil.move(oldpath, newpath)
     
+    
+    def rechercher(self):
+        choix_etat = self.choix_etat.currentText().lower()
+        etat = {"stock":2, "en panne":1, "archive":3, "en service":0, "transferé": 4, "":None}[choix_etat]
+        entry = self.recherche_code.text().strip()
+        searchTypeIndex = self.recherche_combo.currentIndex()
+        with Session(bind=engine) as session:
+            if etat is None:
+                if entry == "":
+                    self.initListeMat()
+                else:
+                    if searchTypeIndex == 0: #code inventaire
+                        result = session.query(Bureautique).filter_by(code_inv=entry).all()
+                    elif searchTypeIndex == 1: #Fournisseur
+                        result = session.query(Bureautique).filter(Bureautique.nomF.contains(entry)).all()
+                    elif searchTypeIndex == 2: # Categorie
+                        result = session.query(Bureautique).filter_by(code_cat=entry).all()
+                    elif searchTypeIndex == 3: # Categorie
+                        result = session.query(Bureautique).join(Employe).filter(Employe.nom.contains(entry.upper())).all()
+                    self.remplirListeMat(result)
+            else:
+                if entry== "":
+                    result = session.query(Bureautique).filter_by(code_etat=etat).all()
+                else:
+                    if searchTypeIndex == 0: #code inventaire
+                        result = session.query(Bureautique).filter_by(code_inv=entry, code_etat=etat).all()
+                    elif searchTypeIndex == 1: #Fournisseur
+                        result = session.query(Bureautique).filter(Bureautique.nomF.contains(entry), 
+                                                                    Bureautique.code_etat ==etat).all()
+                    elif searchTypeIndex == 2: # Categorie
+                        result = session.query(Bureautique).filter_by(code_cat=entry, code_etat=etat).all()
+                    elif searchTypeIndex == 3: # employe
+                        result = session.query(Bureautique).join(Employe).filter(
+                            Employe.nom.contains(entry.upper()),
+                            Bureautique.code_etat==etat).all()
+                self.remplirListeMat(result)
 
         
             

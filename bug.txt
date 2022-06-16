@@ -8,8 +8,8 @@
 etape:
 
  
- finir menu bureau (tout)
- finir menu utilisateurs (fix)
+ 
+
 
  finir a propos
  finir codification

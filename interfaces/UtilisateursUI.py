@@ -1,7 +1,8 @@
 from PyQt5.QtWidgets import QWidget
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import QWidget, QDialog, QMessageBox, QTableWidgetItem, QHeaderView
-from PyQt5.QtCore import pyqtSignal, Qt
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtGui import QIcon
 from os import path
 from GestionAuthentification.Utilisateur import Utilisateur
 from GestionStrucutre.Employe import Employe
@@ -39,7 +40,8 @@ class DialogAjout(QDialog):
     def showErreur(self, code):
         msgbox = QMessageBox()
         msgbox.setStandardButtons(QMessageBox.Ok)
-        
+        msgbox.setWindowIcon(QIcon("./Interfaces/icon.png"))
+
         if code == 0:
             msgbox.setText("Utilisateur Ajouté")
             msgbox.setIcon(QMessageBox.Information)
@@ -61,8 +63,8 @@ class DialogAjout(QDialog):
 class UtilisateursUI(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
-        loadUi(path.join(path.dirname(__file__), "departements.ui"), self)
-        liste_columns = ["Nom Utilisateur", "Mot de passe"]
+        loadUi(path.join(path.dirname(__file__), "utilisateurs.ui"), self)
+        liste_columns = ["Nom Utilisateur", "Mot de passe", "Role"]
         self.nb_col = len(liste_columns)
         self.tableWidget.setColumnCount(self.nb_col)
         self.tableWidget.setHorizontalHeaderLabels(liste_columns)
@@ -80,6 +82,8 @@ class UtilisateursUI(QWidget):
         for instance in listeEmp:
             self.tableWidget.setItem(x, 0, QTableWidgetItem(instance.login))
             self.tableWidget.setItem(x, 1, QTableWidgetItem(instance.mot_de_passe))
+            role = "Administrateur" if instance.admin_flag == 1 else "MGX"
+            self.tableWidget.setItem(x, 2, QTableWidgetItem(role))
             x += 1
     
     def initListeUtils(self):
@@ -95,33 +99,43 @@ class UtilisateursUI(QWidget):
     
     def supprimer(self):
         selected = self.tableWidget.selectedItems()
-        codesupp = []
-        for i in range(0, len(selected), self.nb_col):
-            codesupp.append(selected[i].text())
-        msgbox = QMessageBox()
-        msgbox.setIcon(QMessageBox.Information)
-        listecodes = ",".join(codesupp)
-        msgbox.setText("Voulez vous supprimer ces utilisateurs?\n"+listecodes)
-        msgbox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-        returnvalue = msgbox.exec()
-        if returnvalue == QMessageBox.Ok:
-            with Session(bind=engine) as session:
-                for code in codesupp:
-                    print(code)
-                    print(type(code))
-                    try:
-                        if code == "admin" or code == "Admin":
-                            msgbox3 = QMessageBox()
-                            msgbox3.setIcon(QMessageBox.Warning)
-                            msgbox3.setText("Vous pouvez pas supprimer cet utilisateur:"+ code)
-                            msgbox3.exec()
-                        else:
-                            session.query(Utilisateur).filter_by(login=code).delete()
-                            session.commit()
-                            self.initListeUtils()
-                    except Exception as e:
-                        msgbox2 = QMessageBox()
-                        msgbox2.setIcon(QMessageBox.Warning)
-                        print(e)
-                        msgbox2.setText("Erreur dans la supression de "+ code)
-                        msgbox2.exec()
+        if len(selected) == 0:
+            mbox = QMessageBox()
+            mbox.setWindowTitle("Erreur")
+            mbox.setWindowIcon(QIcon("./Interfaces/icon.png"))
+            mbox.setText("Sélectionnr au moins un utilisateur a supprimer")
+            mbox.setIcon(QMessageBox.Warning)
+            mbox.exec()
+        else:
+            codesupp = []
+            for i in range(0, len(selected), self.nb_col):
+                codesupp.append(selected[i].text())
+            msgbox = QMessageBox()
+            msgbox.setIcon(QMessageBox.Information)
+            listecodes = ",".join(codesupp)
+            msgbox.setText("Voulez vous supprimer ces utilisateurs?\n"+listecodes)
+            msgbox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            returnvalue = msgbox.exec()
+            if returnvalue == QMessageBox.Ok:
+                with Session(bind=engine) as session:
+                    for code in codesupp:
+                        print(code)
+                        print(type(code))
+                        try:
+                            if code == "admin" or code == "Admin":
+                                msgbox3 = QMessageBox()
+                                msgbox3.setIcon(QMessageBox.Warning)
+                                msgbox3.setText("Vous pouvez pas supprimer cet utilisateur:"+ code)
+                                msgbox3.exec()
+                            else:
+                                session.query(Utilisateur).filter_by(login=code).delete()
+                                session.commit()
+                                self.initListeUtils()
+                        except Exception as e:
+                            msgbox2 = QMessageBox()
+                            msgbox2.setIcon(QMessageBox.Warning)
+                            msgbox2.setWindowIcon(QIcon("./Interfaces/icon.png"))
+
+                            print(e)
+                            msgbox2.setText("Erreur dans la supression de "+ code)
+                            msgbox2.exec()
