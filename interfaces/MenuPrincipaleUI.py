@@ -9,6 +9,7 @@ from os import path
 from Interfaces.AuthentificationUI import Authentification
 from Interfaces.FournisseurUI import FournisseurUI
 from Interfaces.EmployeUI import EmployeUI
+from Interfaces.ListeMatBureau import ListMatBureauUi
 
 from Interfaces.ListeMatInfoUI import ListMatInfoUI
 from Interfaces.ListeTransfers import ListeTransfers
@@ -33,7 +34,7 @@ class MenuPrincipale(QMainWindow):
         
         
         self.actionmateriel_informatique.triggered.connect(self.openListeMatInfo)
-        # self.actionmateriel_MGX.triggered.connect(self.openListeMatMgx)
+        self.actionmateriel_MGX.triggered.connect(self.openListeMatBureau)
         self.actionListe_des_transfers.triggered.connect(self.openListeTransfers)
         self.actioncarnet_d_adresses.triggered.connect(self.openListeFournisseur)
         self.actioncalculatrice.triggered.connect(self.openCalculatrice)
@@ -69,7 +70,11 @@ class MenuPrincipale(QMainWindow):
         self.lminfo = ListMatInfoUI(adminFlag=self.adminFlag)
         self.lminfo.setWindowModality(Qt.ApplicationModal)
         self.lminfo.show()
-    
+       
+    def openListeMatBureau(self):
+        self.lminfo = ListMatBureauUi(adminFlag=self.adminFlag)
+        self.lminfo.setWindowModality(Qt.ApplicationModal)
+        self.lminfo.show()
         
     def openListeTransfers(self):
         self.ltransfers = ListeTransfers()

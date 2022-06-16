@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>588</width>
+    <width>617</width>
     <height>433</height>
    </rect>
   </property>
@@ -102,7 +102,7 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
      </property>
      <item>
       <property name="text">
-       <string>Transfer (Externe)</string>
+       <string>Transfert (Externe)</string>
       </property>
      </item>
      <item>
@@ -320,6 +320,25 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
      </property>
     </widget>
    </item>
+   <item row="4" column="6">
+    <widget class="QPushButton" name="fermer">
+     <property name="minimumSize">
+      <size>
+       <width>100</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>120</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>&lt;&lt;&lt;</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources/>
@@ -331,8 +350,8 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>572</x>
-     <y>403</y>
+     <x>460</x>
+     <y>423</y>
     </hint>
     <hint type="destinationlabel">
      <x>412</x>

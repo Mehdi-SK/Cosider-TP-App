@@ -1,12 +1,12 @@
-
 from datetime import date
 from PyQt5.uic import loadUi
 from PyQt5.QtWidgets import QWidget, QDialog, QMessageBox, QTableWidgetItem, QHeaderView, QFileDialog
 from PyQt5.QtCore import pyqtSignal, Qt, QDate
-from PyQt5.QtGui import QIntValidator, QIcon
+from PyQt5.QtGui import QIntValidator,QIcon
 from os import path
+from GestionMateriels.Bureautique import Bureautique
 from GestionMateriels.Fournisseur import Fournisseur
-from GestionMateriels.Informatique import Informatique
+
 from GestionMateriels.Affectation import Affectation
 from sqlalchemy.orm import Session
 from sqlalchemy import or_
@@ -16,12 +16,196 @@ from GestionStrucutre.Projet import Projet
 from database import Global, engine
 
 
-#TODO add ajouter fournisseur to ajouter mat
+
+class ListMatBureauUi(QWidget):
+    def __init__(self, parent=None, adminFlag=1):
+        super().__init__(parent)
+        loadUi(path.join(path.dirname(__file__), 'listeMatBureau.ui'), self)
+        
+         # Table Widget
+        liste_columns = ["Code Inventaire", "Désignation", "Catégorie", "Marque", "Etat",
+                         "Type Achat", "Date Acquisition", "Prix HT",
+                         "Garantie(Mois)", "NBon de commande", "NFacture", "Fournisseur","Affecté à"]
+        self.nb_col = len(liste_columns)
+        self.tableWidget.setColumnCount(self.nb_col)
+        self.tableWidget.setHorizontalHeaderLabels(liste_columns)
+        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.ajouter_button.clicked.connect(self.ouvrirMenuAjout)
+        self.modifier_button.clicked.connect(self.ouvrirMenuModification)
+        self.affecter_button.clicked.connect(self.ouvrirAffectation)
+        self.transfer_button.clicked.connect(self.ouvrirTransfert)
+        self.qr_button.clicked.connect(self.genererQR)
+        self.initListeMat()
+        
+        
+        
+        
+    def remplirListeMat(self, listemat):
+        taille = len(listemat)
+        self.tableWidget.setRowCount(taille)
+        x = 0
+        for instance in listemat:
+            self.tableWidget.setItem(x, 0, QTableWidgetItem(instance.code_inv))
+            self.tableWidget.setItem(x, 1, QTableWidgetItem(instance.desig))
+            self.tableWidget.setItem(x, 2, QTableWidgetItem(instance.code_cat))
+            self.tableWidget.setItem(x, 3, QTableWidgetItem(instance.code_marque))
+            
+            # 0 en service, 1 en panne, 2 en stock, 3 archive, 4 transfert
+            et = {0:"En service", 1:"En panne", 2:"Stock", 3:"Archive",
+                  4:"Transferé"}[instance.code_etat]
+            self.tableWidget.setItem(x,4, QTableWidgetItem(et))
+            
+            tachat = "Projet" if instance.type_achat==0 else "Siège"
+            self.tableWidget.setItem(x, 5, QTableWidgetItem(tachat))
+            dateq = instance.date_aq.strftime("%Y-%m-%d")
+            self.tableWidget.setItem(x, 6, QTableWidgetItem(dateq))
+            self.tableWidget.setItem(x, 7, QTableWidgetItem(str(instance.prix_ht)))
+            
+            if instance.garantie:
+                self.tableWidget.setItem(x, 8, QTableWidgetItem(str(instance.garantie)))
+            self.tableWidget.setItem(x, 9, QTableWidgetItem(instance.nbc))
+            self.tableWidget.setItem(x, 10, QTableWidgetItem(instance.nfact))
+            self.tableWidget.setItem(x, 11, QTableWidgetItem(instance.nomF))
+            if instance.mat_emp:
+                nomcomplet= instance.employe.nom+ " " + instance.employe.prenom
+            else:
+                nomcomplet = ""
+            self.tableWidget.setItem(x, 12, QTableWidgetItem(nomcomplet))
+            
+            x += 1
+      
+      
+    def ouvrirMenuAjout(self):
+        self.menuaj = DialogAjout()
+        self.menuaj.show()
+        self.menuaj.update_liste_fr.connect(self.initListeMat)
+
+    
+    def ouvrirMenuModification(self):
+        selected = self.tableWidget.selectedItems()
+
+        if len(selected) == 0 or len(selected)>13:
+            msgbox = QMessageBox()
+            msgbox.setWindowTitle("Erreur")
+            msgbox.setWindowIcon(QIcon("./Interfaces/icon.png"))
+            msgbox.setIcon(QMessageBox.Information)
+            msgbox.setText("Selectionner un seul materiel à modifier")
+            msgbox.exec()
+        else:
+            with Session(engine) as session:
+                result = session.query(Bureautique).filter_by(code_inv=selected[0].text()).all()
+            
+            self.dialog_modifier = DialogModifier(result[0])
+            self.dialog_modifier.show()
+            self.dialog_modifier.update_liste_mat.connect(self.initListeMat)
+    
+    def ouvrirAffectation(self):
+        selected = self.tableWidget.selectedItems()
+        if len(selected) != 0:
+            
+            codeInvAffect = []
+            for i in range(0, len(selected)):
+                if selected[i].column() == 0:
+                    codeInvAffect.append(selected[i].text())
+            self.dialogAffect = DialogAffecter(codeInvAffect)
+            self.dialogAffect.show()
+            self.dialogAffect.update_liste_mat.connect(self.initListeMat)
+        else:
+            msgbox = QMessageBox()
+            msgbox.setIcon(QMessageBox.Information)
+            msgbox.setText("Selectionner au moins un materiel pour affecter")
+            msgbox.exec()
+    
+    def ouvrirTransfert(self):
+        selected = self.tableWidget.selectedItems()
+        if len(selected) != 0:
+            
+            codeInvTransfert = []
+            for i in range(0, len(selected)):
+                if selected[i].column() == 0:
+                    codeInvTransfert.append(selected[i].text())
+            
+            listeDejaT = []
+            with Session(engine) as session:
+                for code in codeInvTransfert:
+                    result = session.query(Bureautique).filter_by(code_inv=code).one()
+                    if result.code_etat == 4:
+                        listeDejaT.append(result.code_inv)
+            if len(listeDejaT) != 0:
+                msgbox = QMessageBox()
+                msgbox.setIcon(QMessageBox.Information)
+                msgbox.setWindowTitle("Erreur")
+                msgbox.setWindowIcon(QIcon("./Interfaces/icon.png"))
+                msg = "\n".join(listeDejaT)
+                msgbox.setText("Ces materiels sont déja transferés:\n"+msg)
+                msgbox.exec()
+            else:
+                self.dialogTransfert = DialogTransfert(codeInvTransfert)
+                self.dialogTransfert.show()
+                self.dialogTransfert.update_liste_mat.connect(self.initListeMat)
+        else:
+            msgbox = QMessageBox()
+            msgbox.setIcon(QMessageBox.Information)
+            msgbox.setWindowIcon(QIcon("./Interfaces/icon.png"))
+            msgbox.setText("Selectionner au moins un materiel à transférer.")
+            msgbox.exec()
+    
+        
+    def initListeMat(self):
+        with Session(engine) as session:
+            result = session.query(Bureautique).all()
+            self.remplirListeMat(result)
+    
+    def searchDirectory(self):
+        filedir = str(QFileDialog.getExistingDirectory(self, "Selectionner le dossier"))
+        return filedir
+    def genererQR(self):
+        selected = self.tableWidget.selectedItems()
+        if len(selected) != 0:
+            filedir = self.searchDirectory()
+            if filedir:
+                codeInvAffect = []
+                for i in range(0, len(selected)):
+                    if selected[i].column()==0:
+                        codeInvAffect.append(selected[i].text())
+                with Session(engine) as session:
+                    for code in codeInvAffect:
+                        eq = session.query(Bureautique).filter_by(code_inv=code).one()
+                        informationsQR = f'{eq.code_inv}/{eq.code_cat}/{eq.code_marque}/{eq.desig}'
+                        nomFichier = f'{eq.code_cat}-{eq.code_inv}'
+                        self.creerQR(nomFichier, informationsQR, filedir)
+                    msgbox = QMessageBox()
+                    msgbox.setIcon(QMessageBox.Information)
+                    msgbox.setText("Code(s) crée(s)")
+                    msgbox.exec()
+        else:
+            msgbox = QMessageBox()
+            msgbox.setIcon(QMessageBox.Information)
+            msgbox.setText("Selectionner au moins un materiel pour génerer le(s) code(s) QR")
+            msgbox.exec()
+    
+    def creerQR(self, nomfichier, informations, filedir):
+        import qrcode
+        import shutil
+        from os.path import dirname, abspath
+        img = qrcode.make(informations)
+        img.save(f'{nomfichier}.png')
+        old = dirname(dirname(abspath(__file__)))
+        oldpath = old+"\\"+nomfichier+".png"
+        newpath = filedir+"/"+nomfichier+".png"
+        shutil.move(oldpath, newpath)
+    
+
+        
+            
+            
+            
+            
 class DialogAjout(QDialog):
     update_liste_fr = pyqtSignal()
     def __init__(self, parent=None):
         super().__init__(parent)
-        loadUi(path.join(path.dirname(__file__), "ajouter_mat_info.ui"), self)
+        loadUi(path.join(path.dirname(__file__), "ajouter_mat_bureau.ui"), self)
         self.onlyInt = QIntValidator()
         self.prixHTLineEdit.setValidator(self.onlyInt)
         self.garantieLineEdit.setValidator(self.onlyInt)
@@ -32,17 +216,15 @@ class DialogAjout(QDialog):
             self.nomFournisseurComboBox.addItem(f[0])
             
         self.confirmer_button.clicked.connect(self.ajouter_mat)
-    
+        
     def getFields(self):
         cinv = self.codeinv.text().strip()
-        nserie = self.numserie.text().strip()
+        desig = self.designation.text().strip()
         ccat = self.codecat.text().strip().upper()
         mq = self.mrq.text().strip().upper()
-        tp = self.typ.text().strip().upper()
         choix_etat = self.et.currentText().lower()
         # 0 en service, 1 en panne, 2 en stock, 3 archive
         etat = {"stock":2, "en panne":1, "archive":3, "en service":0, "transferé": 4}[choix_etat]
-        prc = self.process.text().strip().upper()
         # infos d'achat
         achat = self.tachat.currentIndex()
         dt = self.dtacq.date().toPyDate()
@@ -51,14 +233,12 @@ class DialogAjout(QDialog):
         nbc = self.numBCLineEdit.text().strip()
         nfct = self.numFactureLineEdit.text().strip()
         nfr = self.nomFournisseurComboBox.currentText()
-        if cinv and nserie and ccat and mq and tp and prxht and nbc and nfct:
-            mat1 = Informatique(code_inv=cinv,
-                                num_serie=nserie,
+        if cinv and ccat and mq  and prxht and nbc and nfct:
+            mat1 = Bureautique(code_inv=cinv,
+                                desig=desig,
                                 code_cat=ccat,
                                 code_marque=mq,
-                                type=tp,
                                 code_etat=etat,
-                                processeur=prc,
                                 prix_ht=prxht,
                                 date_aq=dt,
                                 type_achat=achat,
@@ -70,13 +250,12 @@ class DialogAjout(QDialog):
         else:
             self.showErreur(1)
             
-         
+            
     def ajouter_mat(self):
         mat1 = self.getFields()
         if mat1:
             with Session(engine) as session:
-                check = session.query(Informatique).filter(
-                    or_(Informatique.code_inv==mat1.code_inv, Informatique.num_serie==mat1.num_serie)).count()
+                check = session.query(Bureautique).filter(Bureautique.code_inv==mat1.code_inv).count()
                 if check != 0:
                     self.showErreur(2)
                 else:
@@ -94,7 +273,7 @@ class DialogAjout(QDialog):
         msgbox = QMessageBox()
         msgbox.setStandardButtons(QMessageBox.Ok)
         msgbox.setWindowTitle("Information")
-        
+        msgbox.setWindowIcon(QIcon("./Interfaces/icon.png"))
         if code == 0:
             msgbox.setText("Equipement Ajouté")
             msgbox.setIcon(QMessageBox.Information)
@@ -114,12 +293,14 @@ class DialogAjout(QDialog):
         
         msgbox.exec()
 
+
+# ____________________Modifier__________
 class DialogModifier(QDialog):
     update_liste_mat = pyqtSignal()
-    def __init__(self, selected:Informatique, parent=None):
+    def __init__(self, selected:Bureautique, parent=None):
         super().__init__(parent)
     
-        loadUi(path.join(path.dirname(__file__), "modifier_mat_info.ui"), self)
+        loadUi(path.join(path.dirname(__file__), "modifier_mat_bureau.ui"), self)
         self.onlyInt = QIntValidator()
         self.prixHTLineEdit.setValidator(self.onlyInt)
         self.garantieLineEdit.setValidator(self.onlyInt)
@@ -137,11 +318,9 @@ class DialogModifier(QDialog):
     
     def initModification(self):
         self.codeinv.setText(self.selected.code_inv)
-        self.numserie.setText(self.selected.num_serie)
+        self.desig.setText(self.selected.desig)
         self.codecat.setText(self.selected.code_cat)
         self.mrq.setText(self.selected.code_marque)
-        self.typ.setText(self.selected.type)
-        if self.selected.processeur: self.process.setText(self.selected.processeur)
         self.prixHTLineEdit.setText(str(self.selected.prix_ht))
         self.garantieLineEdit.setText(str(self.selected.garantie))
         self.numBCLineEdit.setText(self.selected.nbc)
@@ -162,15 +341,14 @@ class DialogModifier(QDialog):
     def modifier(self):
         cinv = self.codeinv.text().strip()
         with Session(engine) as session:
-            mat1 = session.query(Informatique).filter_by(code_inv=cinv).one()
+            mat1 = session.query(Bureautique).filter_by(code_inv=cinv).one()
 
             ccat = self.codecat.text().strip().upper()
             mq = self.mrq.text().strip().upper()
-            tp = self.typ.text().strip().upper()
+            desig = self.desig.text().strip().title()
             choix_etat = self.et.currentText().lower()
             # 0 en service, 1 en panne, 2 en stock, 3 archive
             etat = {"stock":2, "en panne":1, "archive":3, "en service":0, "transferé":4}[choix_etat]
-            prc = self.process.text().strip().upper()
             achat = self.tachat.currentIndex()
             dt = self.dtacq.date().toPyDate()
 
@@ -180,13 +358,12 @@ class DialogModifier(QDialog):
             nfct = self.numFactureLineEdit.text().strip()
             nfr = self.nomFournisseurComboBox.currentText()
             
-            if ccat and mq and tp and prxht and nbc and nfct:
+            if ccat and mq and prxht and nbc and nfct:
                 try:
                     mat1.code_cat=ccat
                     mat1.code_marque = mq
-                    mat1.type = tp
+                    mat1.desig=desig
                     mat1.code_etat=etat
-                    mat1.processeur= prc
                     mat1.type_achat=achat
                     mat1.date_aq=dt
                     mat1.prix_ht=prxht
@@ -208,6 +385,7 @@ class DialogModifier(QDialog):
     def showErreur(self, code):
         msgbox = QMessageBox()
         msgbox.setStandardButtons(QMessageBox.Ok)
+        msgbox.setWindowIcon(QIcon("./Interfaces/icon.png"))
         msgbox.setWindowTitle("information")
         if code == 0:
             msgbox.setText("Equipement Modifié")
@@ -222,8 +400,8 @@ class DialogModifier(QDialog):
         
         
         msgbox.exec()
-
-# _______________________Affectation_________________________
+        
+# _____________________ AFFECTER__________________________
 class DialogAffecter(QDialog):
     update_liste_mat = pyqtSignal()
     def __init__(self, selectedCodes, parent=None):
@@ -271,7 +449,7 @@ class DialogAffecter(QDialog):
                     matDejaAffecte=[]
                    
                     for code in self.selectedCodes:
-                        result = session.query(Informatique).filter_by(code_inv=code).one()
+                        result = session.query(Bureautique).filter_by(code_inv=code).one()
                         if result.mat_emp == matemp:
                             info = result.code_inv +"/"+result.code_cat+"/"+result.code_marque+"/"+result.type
                             matDejaAffecte.append(info)
@@ -282,10 +460,11 @@ class DialogAffecter(QDialog):
                         msgb = QMessageBox()
                         msgb.setIcon(QMessageBox.Information)
                         msgb.setWindowTitle("Information")
+                        msgb.setWindowIcon(QIcon("./Interfaces/icon.png"))
                         msgb.setText("Ces materiels sont déjà affecté à(" + matemp+"):\n"+msgs)
                         msgb.exec()
-                    if len(mat_affect):
-                        affect = Affectation(date_affectation=dateaff, mat_emp=matemp, nom_util=user, matInfo=mat_affect)
+                    if len(mat_affect) !=0:
+                        affect = Affectation(date_affectation=dateaff, mat_emp=matemp, nom_util=user, matBureau=mat_affect)
                         session.add(affect)
                     
                         for materiel in mat_affect:
@@ -296,6 +475,7 @@ class DialogAffecter(QDialog):
                         self.update_liste_mat.emit()
                         msgbox = QMessageBox()
                         msgbox.setIcon(QMessageBox.Information)
+                        msgbox.setWindowIcon(QIcon("./Interfaces/icon.png"))
                         msgbox.setWindowTitle("Information")
                         msgbox.setText("Succès")
                         msgbox.buttonClicked.connect(self.close)
@@ -304,224 +484,13 @@ class DialogAffecter(QDialog):
             except Exception as e:
                 msgbox = QMessageBox()
                 msgbox.setIcon(QMessageBox.Warning)
+                msgbox.setWindowIcon(QIcon("./Interfaces/icon.png"))
                 msgbox.setWindowTitle("Erreur")
                 msgbox.setText("Erreur")
                 print(e)
                 msgbox.exec()
     
-    
-class ListMatInfoUI(QWidget):
-    def __init__(self, parent=None, adminFlag=1):
-        super().__init__(parent)
-        loadUi(path.join(path.dirname(__file__), 'listeMatInfo.ui'), self)
-
-        # Table Widget
-        liste_columns = ["Code Inventaire", "NSerie", "Catégorie", "Marque", "Type",
-                         "Processeur", "Etat", "Type Achat", "Date Acquisition", "Prix HT",
-                         "Garantie(Mois)", "NBon de commande", "NFacture", "Fournisseur","Affecté à"]
-        self.nb_col = len(liste_columns)
-        self.tableWidget.setColumnCount(self.nb_col)
-        self.tableWidget.setHorizontalHeaderLabels(liste_columns)
-        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.rechercher_button.clicked.connect(self.rechercher)
-        self.modifier_button.clicked.connect(self.ouvrirMenuModification)
-        self.affecter_button.clicked.connect(self.ouvrirAffectation)
-        self.qr_button.clicked.connect(self.genererQR)
-        self.transfer_button.clicked.connect(self.ouvrirTransfert)
-        self.initListeMat()
-        
-        
-        # slots
-        
-        self.ajouter_button.clicked.connect(self.ouvrirMenuAjout)
-    
-    def ouvrirMenuAjout(self):
-        self.menuaj = DialogAjout()
-        self.menuaj.show()
-        self.menuaj.update_liste_fr.connect(self.initListeMat)
-   
-    def ouvrirMenuModification(self):
-        selected = self.tableWidget.selectedItems()
-
-        if len(selected) == 0 or len(selected)>15:
-            msgbox = QMessageBox()
-            msgbox.setIcon(QMessageBox.Information)
-            msgbox.setText("Selectionner un seul materiel à modifier")
-            msgbox.exec()
-        else:
-            with Session(engine) as session:
-                result = session.query(Informatique).filter_by(code_inv=selected[0].text()).all()
-            
-            self.dialog_modifier = DialogModifier(result[0])
-            self.dialog_modifier.show()
-            self.dialog_modifier.update_liste_mat.connect(self.initListeMat)
-    
-    def ouvrirAffectation(self):
-        selected = self.tableWidget.selectedItems()
-        if len(selected) != 0:
-            
-            codeInvAffect = []
-            for i in range(0, len(selected)):
-                if selected[i].column() == 0:
-                    codeInvAffect.append(selected[i].text())
-            self.dialogAffect = DialogAffecter(codeInvAffect)
-            self.dialogAffect.show()
-            self.dialogAffect.update_liste_mat.connect(self.initListeMat)
-        else:
-            msgbox = QMessageBox()
-            msgbox.setIcon(QMessageBox.Information)
-            msgbox.setText("Selectionner au moins un materiel pour affecter")
-            msgbox.exec()
-    def ouvrirTransfert(self):
-        selected = self.tableWidget.selectedItems()
-        if len(selected) != 0:
-            
-            codeInvTransfert = []
-            for i in range(0, len(selected)):
-                if selected[i].column() == 0:
-                    codeInvTransfert.append(selected[i].text())
-            
-            listeDejaT = []
-            with Session(engine) as session:
-                for code in codeInvTransfert:
-                    result = session.query(Informatique).filter_by(code_inv=code).one()
-                    if result.code_etat == 4:
-                        listeDejaT.append(result.code_inv)
-            if len(listeDejaT) != 0:
-                msgbox = QMessageBox()
-                msgbox.setIcon(QMessageBox.Information)
-                msgbox.setWindowTitle("Erreur")
-                msgbox.setWindowIcon(QIcon("./Interfaces/icon.png"))
-                msg = "\n".join(listeDejaT)
-                msgbox.setText("Ces materiels sont déja transferés:\n"+msg)
-                msgbox.exec()
-            else:
-                self.dialogTransfert = DialogTransfert(codeInvTransfert)
-                self.dialogTransfert.show()
-                self.dialogTransfert.update_liste_mat.connect(self.initListeMat)
-        else:
-            msgbox = QMessageBox()
-            msgbox.setIcon(QMessageBox.Information)
-            msgbox.setWindowIcon(QIcon("./Interfaces/icon.png"))
-            msgbox.setText("Selectionner au moins un materiel à transférer.")
-            msgbox.exec()
-    
-    def remplirListeMat(self, listemat):
-        taille = len(listemat)
-        self.tableWidget.setRowCount(taille)
-        x = 0
-        for instance in listemat:
-            self.tableWidget.setItem(x, 0, QTableWidgetItem(instance.code_inv))
-            self.tableWidget.setItem(x, 1, QTableWidgetItem(instance.num_serie))
-            self.tableWidget.setItem(x, 2, QTableWidgetItem(instance.code_cat))
-            self.tableWidget.setItem(x, 3, QTableWidgetItem(instance.code_marque))
-            self.tableWidget.setItem(x, 4, QTableWidgetItem(instance.type))
-            if instance.processeur:
-                self.tableWidget.setItem(x, 5, QTableWidgetItem(instance.processeur))
-                
-            # 0 en service, 1 en panne, 2 en stock, 3 archive, 4 transfert
-            et = {0:"En service", 1:"En panne", 2:"Stock", 3:"Archive",
-                  4:"Transferé"}[instance.code_etat]
-            self.tableWidget.setItem(x, 6, QTableWidgetItem(et))
-            
-            tachat = "Projet" if instance.type_achat==0 else "Siège"
-            self.tableWidget.setItem(x, 7, QTableWidgetItem(tachat))
-            dateq = instance.date_aq.strftime("%Y-%m-%d")
-            self.tableWidget.setItem(x, 8, QTableWidgetItem(dateq))
-            self.tableWidget.setItem(x, 9, QTableWidgetItem(str(instance.prix_ht)))
-            
-            if instance.garantie:
-                self.tableWidget.setItem(x, 10, QTableWidgetItem(str(instance.garantie)))
-            self.tableWidget.setItem(x, 11, QTableWidgetItem(instance.nbc))
-            self.tableWidget.setItem(x, 12, QTableWidgetItem(instance.nfact))
-            self.tableWidget.setItem(x, 13, QTableWidgetItem(instance.nomF))
-            if instance.mat_emp:
-                nomcomplet= instance.employe.nom+ " " + instance.employe.prenom
-            else:
-                nomcomplet = ""
-            self.tableWidget.setItem(x, 14, QTableWidgetItem(nomcomplet))
-            
-            x += 1
-    
-    def searchDirectory(self):
-        filedir = str(QFileDialog.getExistingDirectory(self, "Selectionner le dossier"))
-        return filedir
-    def genererQR(self):
-        selected = self.tableWidget.selectedItems()
-        if len(selected) != 0:
-            filedir = self.searchDirectory()
-            if filedir:
-                codeInvAffect = []
-                for i in range(0, len(selected)):
-                    if selected[i].column()==0:
-                        codeInvAffect.append(selected[i].text())
-                with Session(engine) as session:
-                    for code in codeInvAffect:
-                        eq = session.query(Informatique).filter_by(code_inv=code).one()
-                        informationsQR = f'{eq.code_inv}/{eq.code_cat}/{eq.code_marque}/{eq.num_serie}/{eq.type}'
-                        nomFichier = f'{eq.code_cat}-{eq.code_inv}'
-                        self.creerQR(nomFichier, informationsQR, filedir)
-                    msgbox = QMessageBox()
-                    msgbox.setIcon(QMessageBox.Information)
-                    msgbox.setText("Code(s) crée(s)")
-                    msgbox.exec()
-        else:
-            msgbox = QMessageBox()
-            msgbox.setIcon(QMessageBox.Information)
-            msgbox.setText("Selectionner au moins un materiel pour génerer le(s) code(s) QR")
-            msgbox.exec()
-    
-    def creerQR(self, nomfichier, informations, filedir):
-        import qrcode
-        import shutil
-        from os.path import dirname, abspath
-        img = qrcode.make(informations)
-        img.save(f'{nomfichier}.png')
-        old = dirname(dirname(abspath(__file__)))
-        oldpath = old+"\\"+nomfichier+".png"
-        newpath = filedir+"/"+nomfichier+".png"
-        shutil.move(oldpath, newpath)
-    
-    def rechercher(self):
-        choix_etat = self.choix_etat.currentText().lower()
-        etat = {"stock":2, "en panne":1, "archive":3, "en service":0, "transferé": 4, "":None}[choix_etat]
-        entry = self.recherche_code.text().strip()
-        searchTypeIndex = self.recherche_combo.currentIndex()
-        with Session(bind=engine) as session:
-            if etat is None:
-                if entry == "":
-                    self.initListeMat()
-                else:
-                    if searchTypeIndex == 0: #code inventaire
-                        result = session.query(Informatique).filter_by(code_inv=entry).all()
-                    elif searchTypeIndex == 1: #Fournisseur
-                        result = session.query(Informatique).filter(Informatique.nomF.contains(entry)).all()
-                    elif searchTypeIndex == 2: # Categorie
-                        result = session.query(Informatique).filter_by(code_cat=entry).all()
-                    elif searchTypeIndex == 3: # Categorie
-                        result = session.query(Informatique).join(Employe).filter(Employe.nom.contains(entry.upper())).all()
-                    self.remplirListeMat(result)
-            else:
-                if entry== "":
-                    result = session.query(Informatique).filter_by(code_etat=etat).all()
-                else:
-                    if searchTypeIndex == 0: #code inventaire
-                        result = session.query(Informatique).filter_by(code_inv=entry, code_etat=etat).all()
-                    elif searchTypeIndex == 1: #Fournisseur
-                        result = session.query(Informatique).filter(Informatique.nomF.contains(entry), 
-                                                                    Informatique.code_etat ==etat).all()
-                    elif searchTypeIndex == 2: # Categorie
-                        result = session.query(Informatique).filter_by(code_cat=entry, code_etat=etat).all()
-                    elif searchTypeIndex == 3: # employe
-                        result = session.query(Informatique).join(Employe).filter(
-                            Employe.nom.contains(entry.upper()),
-                            Informatique.code_etat==etat).all()
-                self.remplirListeMat(result)
-    def initListeMat(self):
-        with Session(engine) as session:
-            result = session.query(Informatique).all()
-            self.remplirListeMat(result)
-
+# ________________Transfert__________________
 class DialogTransfert(QDialog):
     update_liste_mat = pyqtSignal()
     def __init__(self, selectedCodes, parent=None):
@@ -533,7 +502,8 @@ class DialogTransfert(QDialog):
         for f in listeF:
             if f[0] !="T146": self.comboBox.addItem(f[0])
         self.confirmer.clicked.connect(self.transferer)
-        
+    
+    
     def transferer(self):
         codepDestin = self.comboBox.currentText()
         datetr = date.today()
@@ -547,7 +517,7 @@ class DialogTransfert(QDialog):
             session.add(t1)
             session.flush()
             for code in self.selectedCodes:
-                result = session.query(Informatique).filter_by(code_inv=code).one()
+                result = session.query(Bureautique).filter_by(code_inv=code).one()
                 result.code_etat = 4
                 result.ntransfer = t1.numt
                 result.mat_emp = None
@@ -558,7 +528,12 @@ class DialogTransfert(QDialog):
             msgbox = QMessageBox()
             msgbox.setIcon(QMessageBox.Information)
             msgbox.setWindowTitle("Information")
+            msgbox.setWindowIcon(QIcon("./Interfaces/icon.png"))
             msgbox.setText("Succès")
             msgbox.buttonClicked.connect(self.close)
             msgbox.exec()
-            
+
+
+    
+
+

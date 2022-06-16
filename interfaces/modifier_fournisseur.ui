@@ -14,7 +14,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Modifier Fournisseur</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icon.png</normaloff>icon.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">*{
@@ -22,7 +26,7 @@
 }
 #Dialog{
 	
-	background-color: rgb(255, 255, 255);
+	background-color: #eee;
 	font: 10pt;
 }
 
@@ -88,22 +92,6 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
      <property name="verticalSpacing">
       <number>6</number>
      </property>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label">
-       <property name="minimumSize">
-        <size>
-         <width>100</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Nom Fournisseur</string>
-       </property>
-       <property name="textInteractionFlags">
-        <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="1">
       <widget class="QLineEdit" name="nom">
        <property name="enabled">
@@ -132,7 +120,7 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
         </size>
        </property>
        <property name="text">
-        <string>Numero Telephone</string>
+        <string>Numero Téléphone</string>
        </property>
       </widget>
      </item>
@@ -180,6 +168,32 @@ QComboBox:!editable:on, QComboBox::drop-down:editable:on {
       <widget class="QLineEdit" name="loc">
        <property name="clearButtonEnabled">
         <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Domaine d'activité</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="dact"/>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="minimumSize">
+        <size>
+         <width>100</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Nom Fournisseur</string>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
        </property>
       </widget>
      </item>

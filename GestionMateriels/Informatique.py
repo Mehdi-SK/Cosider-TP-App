@@ -30,7 +30,7 @@ class Informatique(Base):
     ntransfer = Column(Integer, ForeignKey("transferts.numt", ondelete="SET NULL"), default=None)
     mat_emp = Column(String(30), ForeignKey("Employe.matricule", ondelete="SET NULL"))
     
-    employe = relationship("Employe")
+    employe = relationship("Employe", back_populates = "eq_info")
     transfert = relationship("Transfert")
     
     affectations = relationship("Affectation", secondary=mat_affectation_info, back_populates="matInfo")

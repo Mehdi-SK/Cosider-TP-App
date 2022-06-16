@@ -14,6 +14,7 @@ class Employe(Base):
     archive = Column(Boolean, default=False) 
     
     service = relationship("Service")
+    eq_info = relationship("Informatique", back_populates="employe")
     
     def __repr__(self) -> str:
         return f"{self.matricule}, {self.nom}, {self.prenom},{self.genre}, {self.poste}, {self.code_service} "

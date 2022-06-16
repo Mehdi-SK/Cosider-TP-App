@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>700</width>
-    <height>456</height>
+    <height>461</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Liste des materiels informatique</string>
+   <string>Liste des materiels bureautiques</string>
   </property>
   <property name="windowIcon">
    <iconset>

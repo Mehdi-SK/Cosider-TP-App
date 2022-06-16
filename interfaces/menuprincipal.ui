@@ -106,7 +106,7 @@ QMenuBar::item:selected{
    </widget>
    <widget class="QMenu" name="menutransfer">
     <property name="title">
-     <string>Transfers</string>
+     <string>Transferts/Affectations</string>
     </property>
     <addaction name="actionListe_des_transfers"/>
    </widget>
@@ -186,7 +186,7 @@ QMenuBar::item:selected{
   </action>
   <action name="actionmateriel_MGX">
    <property name="text">
-    <string>Materiels généraux</string>
+    <string>Materiels bureautiques</string>
    </property>
   </action>
   <action name="actiontransfer_ext">
