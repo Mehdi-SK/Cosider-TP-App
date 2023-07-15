@@ -6,8 +6,20 @@ Developed as part of internship with the company for final year Licence degree p
 
 ## Features
 
-* Inventory management for various types of gear, hardware, materials... etc. for the current project.
+* Inventory management for various types of gear, hardware, materials... etc. for the current project with various filters.
 * Transfer items to other project or assign them to employees.
-* Keeps track of the current place of any given item.
-* QR code generation for printing, thus simplifying physical identification and yearly inventory counts.
+* Check providers information.
 * 
+* QR code generation for printing, thus simplifying physical identification and yearly inventory counts.
+
+## Technologies
+* Python 3
+* Microsoft SQL server
+* SQL Alchemy ORM
+* PyQT and QSS
+
+## Future plans
+* Centralize the application so it runs directly on the server rather than the desktop.
+* Add employee management features.
+* Add a dashboard for admin users.
+* Potenitialy look into transfering to a web application to connect between various projects.
